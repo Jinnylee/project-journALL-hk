@@ -45,7 +45,8 @@ $(document).ready(function () {
           window.location.href = "/journals";
         },
         error: function (response) {
-          console.log(response);
+          var text = response.responseJSON ? response.responseJSON.message : response.responseText;
+          $('#signin-form-message').text(text);
         }
       });
     });

@@ -10,7 +10,7 @@ $(document).ready(function () {
       '<div id="favorite"><i class="fa fa-heart-o"></i>' + ' ' + favorite + '</div>' +
       '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'View' + '</a>'
     '</div><br>';
-
+    console.log(id);
     $('#mostPopular').append(divs);
   };
 
@@ -28,8 +28,10 @@ $(document).ready(function () {
       '<div id="singlefavorite>' + favorite +
     '</div>'
 
-    $('.singletitle').append(title);
-    $('.singlebody').append(body);
+    $('.oneBody').empty();
+    $('.oneTitle').empty();
+    $('.oneBody').append(body);
+    $('.oneTitle').append(title);
   };
 
   //show recent journals
@@ -71,7 +73,8 @@ $(document).ready(function () {
           $('#viewPost').modal('show');
         },
         error: function (response) {
-          console.log(response);
+          console.log("Please Log in first", response);
+          //$('#viewPost').modal('show');
         }
       })
     })

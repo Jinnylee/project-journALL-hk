@@ -1,4 +1,4 @@
-var Authenticated = require("../modules/Authenticated.js");
+var Authenticated = require("../modules/authenticated.js");
 
 exports.register = function (server, options, next) {
   server.route([
@@ -17,18 +17,28 @@ exports.register = function (server, options, next) {
 
       }
     },
-    {
+    { // showing content in modal of one post
       method: 'GET',
       path: '/api/journals/{id}',
       handler: function(request, reply) {
-        var db = request.server.plugins['hapi-mongodb'].db;
+        Authenticated(request, function (result) {
+        if (result.authenticated) { // loggin in
 
-        db.collection('journals').findOne(function (err, results) {
-          if (err) { return reply(err).code(400); }
-          reply(results).code(200);
+          var db = request.server.plugins['hapi-mongodb'].db;
+          var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+          var id = ObjectID(request.params.id);
+
+          db.collection('journals').findOne({"_id": id}, function (err, results) {
+            if (err) { return reply(err).code(400); }
+            reply(results).code(200);
+          });
+          } else {
+            reply(result).code(400);
+          }
         });
       }
     }
+
   ]);
 
   next();
