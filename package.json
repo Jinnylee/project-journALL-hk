@@ -1,7 +1,7 @@
 {
-  "name": "hapi-template",
+  "name": "project-journALL-hk",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a template for using hapi.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,5 +18,13 @@
     "path": "^0.12.7",
     "vision": "^4.0.1",
     "yar": "^7.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jinnylee/project-journALL-hk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Jinnylee/project-journALL-hk/issues"
+  },
+  "homepage": "https://github.com/Jinnylee/project-journALL-hk#readme"
 }

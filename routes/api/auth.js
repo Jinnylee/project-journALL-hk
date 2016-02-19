@@ -11,26 +11,47 @@ exports.register = function(server, options, next) {
       config: {
         handler: function(request, reply) {
           var db = request.server.plugins['hapi-mongodb'].db;
+          var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
           var user = request.payload;
+          user._id = new ObjectID();
 
           // query to find existing user
           var uniqUserQuery = { $or: [{username: user.username}, {email: user.email}] };
 
           db.collection('users').findOne(uniqUserQuery, function(err, userExist){
+            if (err) { return reply(err).code(400); }
+
             if (userExist) {
               return reply('Error: Username/Email already exist', err).code(400);
             }
 
             // Now, add the new user into the database
             Bcrypt.genSalt(10, function(err, salt) {
+              if (err) {return reply("Internal Bcrypt error", err).code(400); }
+
               Bcrypt.hash(user.password, salt, function(err, hash) {
+                if (err) {return reply("Internal Bcrypt error", err).code(400); }
+
                 user.password = hash;
 
                 // Store hash in your password DB.
                 db.collection('users').insert(user, function(err, doc) {
                   if (err) { return reply('Internal MongoDB error', err).code(400); }
 
-                  reply(doc).code(200);
+                  //create session when user signs up
+                  var newSession = {
+                    "session_id": randomKeyGenerator(),
+                    "user_id": user._id
+                  };
+
+                  db.collection('sessions').insert(newSession, function(err, result) {
+                    if (err) { return reply('Internal MongoDB error', err).code(400); }
+
+                    // Store the Session information in the browser Cookie
+                    request.yar.set('journal_session', newSession);
+
+                    return reply({ "message:": "Authenticated" }).code(200);
+                  });
                 });
               });
             });
@@ -38,6 +59,7 @@ exports.register = function(server, options, next) {
         },
         validate: {
           payload: {
+            name:     Joi.string().required(),
             email:    Joi.string().email().max(50).required(),
             username: Joi.string().min(4).max(20).required(),
             password: Joi.string().min(4).max(20).required()
@@ -75,7 +97,7 @@ exports.register = function(server, options, next) {
                     }
 
                     // Store the Session information in the browser Cookie
-                    request.yar.set('hapi_template_session', newSession); // CHANGE-ME
+                    request.yar.set('journal_session', newSession);
 
                     return reply({ "message:": "Authenticated" }).code(200);
                   });
@@ -98,7 +120,7 @@ exports.register = function(server, options, next) {
       path: '/api/signout',
       handler: function(request, reply) {
         var db = request.server.plugins['hapi-mongodb'].db;
-        var session = request.yar.get('hapi_template_session'); // CHANGE-ME
+        var session = request.yar.get('journal_session');
 
         if (!session) {
           return reply({ "message": "Already logged out" }).code(400);

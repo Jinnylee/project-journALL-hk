@@ -1,0 +1,12 @@
+body {
+  font-family: 'Bad Script', cursive, Times, serif;
+}
+
+
+.search {
+  width: 600px;
+}
+.form-control {
+  width: 400px;
+  background-color: none;
+}

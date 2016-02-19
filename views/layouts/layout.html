@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hapi Template</title> <!-- CHANGE-ME -->
+  <title>JournALL</title> <!-- CHANGE-ME -->
 
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -10,15 +10,104 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="/public/css/layouts/layout.css">
+  <link href='https://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  {{#if authenticated}}
-    <button id="signout-btn" class="btn btn-default">Sign Out</button>
-  {{else}}
-    <a href="/signup" class="btn btn-default">Sign Up</a>
-    <a href="/signin" class="btn btn-default">Sign In</a>
-  {{/if}}
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">JournALL</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <form class="navbar-form navbar-left" role="search">
+          <div class="form-group search">
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          {{#unless authenticated}}
+            <li> <button class ="btn btn-default" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
+            <li><button class ="btn btn-default" data-toggle="modal" data-target="#signin-modal">Sign In</a></li>
+  <!--      Changing the above code from a-href to modal function: CHANGE THE AHREF TO button class, go to Bootstrap website, check out usage in bootstrap modal (IN JS section) add the classes data toggle data target into the above as attributes after class, and then also copy paste the launch demo modal code into the layout underneath the nav -->
+          {{else}}
+            <li><button id="signout-btn" class="btn btn-default">Sign Out</button></li>
+          {{/unless}}
+      </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <div id="signin-page">
+            <h2>Sign In</h2>
+
+            <form id="signin">
+              <input type="text" name="username" placeholder="username">
+              <input type="password" name="password" placeholder="password">
+              <input type="submit" name="Sign in" class="btn btn-default">
+            </form>
+
+            <div id="signin-form-message"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Sign in</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <div id="signup-page">
+            <h2>Sign Up</h2>
+
+            <form id="signup">
+              <input type="text" name="email" placeholder="email">
+              <input type="text" name="name" placeholder="username">
+              <input type="text" name="username" placeholder="username">
+              <input type="password" name="password" placeholder="password">
+              <input type="submit" name="Sign Up" class="btn btn-default">
+            </form>
+
+            <div id="signup-form-message"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Sign up</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   {{{content}}}
 </body>
 </html>
+
+
+<script src="/public/js/auth/signin.js"></script>
+<link rel="stylesheet" href="/public/css/auth/signin.css">

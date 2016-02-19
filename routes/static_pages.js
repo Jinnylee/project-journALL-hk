@@ -16,8 +16,14 @@ exports.register = function (server, options, next) {
       path: '/',
       handler: function(request, reply) {
         Authenticated(request, function (result) {
-          var data = result; // need to have authenticated inorder to show signout button
-          reply.view('static_pages/home', data).code(200);
+          var db = request.server.plugins['hapi-mongodb'].db;
+
+          db.collection('journals').find().limit(10).toArray(function(err, journals){
+            var data = result; // need to have authenticated inorder to show signout button
+            data.journals = journals;
+
+            reply.view('static_pages/home', data).code(200);
+          })
         });
       }
     }
@@ -30,3 +36,4 @@ exports.register.attributes = {
   name: 'static-pages-views',
   version: '0.0.1'
 };
+
