@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="/public/css/layouts/layout.css">
   <link href='https://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -36,13 +37,13 @@
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          {{#unless authenticated}}
+          <% if (!authenticated) { %>
             <li> <button class ="btn btn-default" data-toggle="modal" data-target="#signup-modal">Sign Up</a></li>
             <li><button class ="btn btn-default" data-toggle="modal" data-target="#signin-modal">Sign In</a></li>
   <!--      Changing the above code from a-href to modal function: CHANGE THE AHREF TO button class, go to Bootstrap website, check out usage in bootstrap modal (IN JS section) add the classes data toggle data target into the above as attributes after class, and then also copy paste the launch demo modal code into the layout underneath the nav -->
-          {{else}}
+          <% } else { %>
             <li><button id="signout-btn" class="btn btn-default">Sign Out</button></li>
-          {{/unless}}
+          <% } %>
       </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -104,6 +105,6 @@
     </div>
   </div>
 
-  {{{content}}}
+  <%- content %>
 </body>
 </html>
