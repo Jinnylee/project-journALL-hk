@@ -17,15 +17,18 @@ exports.register = function (server, options, next) {
 
       }
     },
-    // {
-    //   method: 'GET',
-    //   path: '/api/user/{username}/journals/{id}',
-    //   handler: function(request, reply) {
-    //     var db = request.server.plugins['hapi-mongodb'].db;
-    //       reply(results).code(200);
-    //     });
-    //   }
-    // }
+    {
+      method: 'GET',
+      path: '/api/journals/{id}',
+      handler: function(request, reply) {
+        var db = request.server.plugins['hapi-mongodb'].db;
+
+        db.collection('journals').findOne(function (err, results) {
+          if (err) { return reply(err).code(400); }
+          reply(results).code(200);
+        });
+      }
+    }
   ]);
 
   next();
