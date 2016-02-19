@@ -21,8 +21,8 @@ exports.register = function (server, options, next) {
       method: 'GET',
       path: '/api/journals/{id}',
       handler: function(request, reply) {
-        Authenticated(request, function (result) {
-        if (result.authenticated) { // loggin in
+        // Authenticated(request, function (result) {
+        // if (result.authenticated) { // loggin in
 
           var db = request.server.plugins['hapi-mongodb'].db;
           var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
@@ -32,10 +32,10 @@ exports.register = function (server, options, next) {
             if (err) { return reply(err).code(400); }
             reply(results).code(200);
           });
-          } else {
-            reply(result).code(400);
-          }
-        });
+          // } else {
+          //   reply(result).code(400);
+          // }
+      //   });
       }
     }
 
