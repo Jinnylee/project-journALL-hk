@@ -42,7 +42,7 @@
             <li><button class ="btn btn-default" data-toggle="modal" data-target="#signin-modal">Sign In</a></li>
   <!--      Changing the above code from a-href to modal function: CHANGE THE AHREF TO button class, go to Bootstrap website, check out usage in bootstrap modal (IN JS section) add the classes data toggle data target into the above as attributes after class, and then also copy paste the launch demo modal code into the layout underneath the nav -->
           <% } else { %>
-            <li><a href="/profile/<%=user.username%>"><%=user.username%></a><button id="signout-btn" class="btn btn-default">Sign Out</button></li>
+            <li><a href="/profile/<%=CurrentUser.username%>"><%=CurrentUser.username%></a><button id="signout-btn" class="btn btn-default">Sign Out</button></li>
           <% } %>
       </ul>
       </div><!-- /.navbar-collapse -->

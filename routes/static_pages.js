@@ -21,18 +21,21 @@ exports.register = function (server, options, next) {
             reply.view('home', data).code(200);
           });
       }
-    },
-    { //profile page
-      method: 'GET',
-      path: '/profile/{username}',
-      handler: function(request, reply) {
-        Authenticated(request, function (result) {
-          var db = request.server.plugins['hapi-mongodb'].db;
-            var data = result; // need to have authenticated inorder to show signout button
-            reply.view('profile', data).code(200);
-          });
-      }
     }
+    // ,
+    // { //profile page
+    //   method: 'GET',
+    //   path: '/profile/{username}',
+    //   handler: function(request, reply) {
+    //     Authenticated(request, function (result) {
+    //       var db = request.server.plugins['hapi-mongodb'].db;
+    //         var data = result; // need to have authenticated inorder to show signout button
+    //         reply.view('profile', data).code(200);
+
+
+    //       });
+    //   }
+    //  }
   ]);
 
   next();
