@@ -12,15 +12,14 @@ $(document).ready(function () {
   }
 
   var getInformation = function () {
-
+    //not working
     $.ajax({
         url: "/api/{username}",
         method: "GET",
         success: function (response, status) {
           console.log(response);
-          showInformation(response.username, elem.favorite);
+          showInformation(response.username, response.favorite);
 
-          getInformation();
         },
         error: function (response, status) {
           console.log(response);
@@ -28,8 +27,40 @@ $(document).ready(function () {
       });
   }
 
+  var bindCreateJournal = function () {
+    $('#createJournal').on('submit', function (e) {
+      e.preventDefault();
+      $('#create-form-message').text('');
+
+      //var username = $(this).parent().data("username");
+
+      var journal = {
+        title   : $('#createJournal [name="title"]').val(),
+        tags    : $('#createJournal [name="tags"]').val(),
+        journal : $('#createJournal [name="journal"]').val()
+      };
+
+      console.log(journal);
+
+      $.ajax({
+        method: 'POST',
+        url: '/api/addpost',
+        data: journal,
+        success: function (response) {
+          console.log(response)
+        },
+        error: function (response) {
+          console.log("no post to add", response);
+        }
+      });
+
+    })
+  };
+
+
   var init = function () {
     showInformation();
+    bindCreateJournal();
   }
 
   init();

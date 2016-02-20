@@ -3,13 +3,37 @@
 
   </div>
   <div id="userPostsFavorites">
-    <button id="userPosts"></button>
-    <button id="userFavorites"></button>
+    <button id="userPosts">My Posts</button>
+    <button id="userFavorites">Favorites</button>
   </div>
   <div id="ownEntry">
-    <button id="create">Create Journal</button>
+    <button class ="btn btn-default" data-toggle="modal" data-target="#create-modal">Create Journal</a>
   </div>
 </div>
+
+<div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Create Journal</h4>
+        </div>
+        <div class="modal-body">
+          <div id="createJournal-page">
+
+            <form id="createJournal">
+              <input type="text" name="title" placeholder="title">
+              <input type="text" name="tags" placeholder="tags">
+              <input type="text" name="journal" placeholder="journal">
+              <input type="submit" name="create journal" class="btn btn-default">
+            </form>
+
+            <div id="create-form-message"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script src="/public/js/static_pages/profile.js"></script>
 <link rel="stylesheet" href="/public/css/static_pages/profile.css">

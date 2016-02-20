@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+  var showUsername = function (username) {
+    var name = '<button>' + username + '</button>'
+    $('#seeUser').append(name);
+  }
+
   var bindSignup = function () {
     $('#signup').on('submit', function (e) {
       e.preventDefault();
@@ -17,7 +22,8 @@ $(document).ready(function () {
         url: '/api/signup',
         data: user,
         success: function (response) {
-          window.location.href = "/journals";
+          window.location.href = "/";
+          showUsername(response.username);
         },
         error: function (response) {
           var text = response.responseJSON ? response.responseJSON.message : response.responseText;
@@ -29,7 +35,7 @@ $(document).ready(function () {
   };
 
   var bindSignin = function () {
-    $('#signin').on('submit', function () {
+    $('#signin').on('submit', function (e) {
       e.preventDefault();
 
       var user = {
@@ -42,7 +48,8 @@ $(document).ready(function () {
         url: "/api/signin",
         data: user,
         success: function (response) {
-          window.location.href = "/journals";
+          window.location.href = "/";
+          showUsername(response.username);
         },
         error: function (response) {
           var text = response.responseJSON ? response.responseJSON.message : response.responseText;
@@ -59,7 +66,7 @@ $(document).ready(function () {
         type: "DELETE",
         url: "/api/signout",
         success: function (response) {
-          window.location.href = '/journals';
+          window.location.href = '/';
         }
       });
     });
