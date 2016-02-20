@@ -1,10 +1,5 @@
 $(document).ready(function () {
 
-  var showUsername = function (username) {
-    var name = '<button>' + username + '</button>'
-    $('#seeUser').append(name);
-  }
-
   var bindSignup = function () {
     $('#signup').on('submit', function (e) {
       e.preventDefault();
@@ -48,12 +43,11 @@ $(document).ready(function () {
         url: "/api/signin",
         data: user,
         success: function (response) {
+          console.log(response);
           window.location.href = "/";
-          showUsername(response.username);
         },
         error: function (response) {
-          var text = response.responseJSON ? response.responseJSON.message : response.responseText;
-          $('#signin-form-message').text(text);
+          console.log(response);
         }
       });
     });

@@ -24,7 +24,7 @@ exports.register = function (server, options, next) {
     },
     { //profile page
       method: 'GET',
-      path: '/api/{username}',
+      path: '/profile/{username}',
       handler: function(request, reply) {
         Authenticated(request, function (result) {
           var db = request.server.plugins['hapi-mongodb'].db;

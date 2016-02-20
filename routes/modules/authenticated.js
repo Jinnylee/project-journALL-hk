@@ -1,5 +1,6 @@
 module.exports = function(request, callback) {
   var db = request.server.plugins['hapi-mongodb'].db;
+  var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
   var session = request.yar.get('journal_session');
 
   if (!session) {
@@ -15,9 +16,14 @@ module.exports = function(request, callback) {
         "message": "Unauthorized"
       });
     } else {
-      return callback({
-        "authenticated": true,
-        "message": "Authorized"
+      db.collection('users').findOne({'_id': ObjectID(result.user_id)}, function (err, user) {
+        if (err) { return reply(err).code(500); }
+
+        return callback({
+          "authenticated": true,
+          "user": user,
+          "message": "Authorized"
+        });
       });
     }
   });

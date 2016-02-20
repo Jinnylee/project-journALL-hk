@@ -44,7 +44,7 @@ $(document).ready(function () {
 
       $.ajax({
         method: 'POST',
-        url: '/api/addpost',
+        url: '/api/journals',
         data: journal,
         success: function (response) {
           console.log(response)

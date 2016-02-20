@@ -37,8 +37,45 @@ exports.register = function (server, options, next) {
           }
         });
       }
-    }
+    },
+    {
+      method: 'POST',
+      path: '/api/journals',
+      handler: function(request, reply) {
+        console.log(request);
+        Authenticated(request, function (result) {
+          if (result.authenticated){
+            //connecting with server
+            var db       = request.server.plugins['hapi-mongodb'].db;
+            //
+            var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+            //
+            var session  = request.yar.get('journal_session');
+            //getting data journal from ajax
+            var journal  = request.payload;
 
+            var newJournal = {
+              "user_id": ObjectID(session.user_id),
+              "title": journal.title,
+              // "username": ObjectID.username,
+              // "date": ISODate(),
+              "journal": journal.journal,
+              "favorite": 0,
+              "tags": journal.tags
+            };
+
+            db.collection('journals').insert(newJournal, function(err, doc) {
+              if (err) { return reply ('Internal MongoDB error',err).code(400);}
+
+              reply(doc).code(200);
+            })
+          } else {
+            // can't create a post if you are not logged in
+            reply(result).code(400);
+          }
+        })
+      }
+    }
   ]);
 
   next();
