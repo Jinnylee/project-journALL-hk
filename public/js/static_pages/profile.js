@@ -30,9 +30,13 @@ $(document).ready(function () {
     })
   };
 
+  var bindTwoButtons = function () {
+    $('#userFavorites').on('click')
+  };
 
   var init = function () {
     bindCreateJournal();
+    bindTwoButtons
   }
 
   init();
