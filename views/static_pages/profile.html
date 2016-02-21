@@ -18,11 +18,29 @@
     <button id="userFavorites">Favorites</button>
   </div>
 
+
 <!-- modal to show journal -->
 <div class="container-fluid">
   <div class="row">
     <% journals.forEach(function(elem){ %>
       <div class="col-xs-12 col-sm-4 ownPost">
+        <div><%= elem.title %></div>
+        <div><%= elem.username %></div>
+        <div><%= elem.date %></div>
+        <div><%= elem.journal %></div>
+        <div><%= elem.favorite %></div>
+        <button class="btn btn-default view-btn <%= elem._id %>">View</button>
+      </div>
+    <% }) %>
+  </div>
+  <!--<a href="">see more...</a>-->
+</div>
+
+<!-- modal to show favorites
+<div class="container-fluid">
+  <div class="row">
+    <% journals.forEach(function(elem){ %>
+      <div class="col-xs-12 col-sm-4 ownFavorite">
         <span><p><%= elem.title %></p></span>
         <span><p><%= elem.username %></p></span>
         <span><p><%= elem.date %></p></span>
@@ -31,8 +49,32 @@
       </div>
     <% }) %>
   </div>
-  <!--<a href="">see more...</a>-->
-</div>
+  <a href="">see more...</a>
+</div>-->
+
+<!-- modal for showing individual post-->
+<div id="ownMostRecent"></div>
+
+<div class="modal fade" id="viewPost" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title oneTitle"></h4>
+      </div>
+      <div class="modal-body">
+        <p class="oneBody"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default closeOne" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<button type="button" class="close alert" id="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
 
 <!-- modal to create journal -->
 <div class="modal fade" id="create-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

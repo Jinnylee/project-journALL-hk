@@ -105,6 +105,7 @@ $(document).ready(function () {
 
   var init = function () {
     showPopular();
+    showOnePostProfile
   };
 
   init();

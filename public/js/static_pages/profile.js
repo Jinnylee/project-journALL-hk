@@ -30,13 +30,45 @@ $(document).ready(function () {
     })
   };
 
-  var bindTwoButtons = function () {
-    $('#userFavorites').on('click')
+  var showOnePostProfile = function () {
+    $('.view-btn').off().on('click', function (e) {
+      e.preventDefault();
+
+      $('#viewPost').modal(show);
+    })
   };
+
+  var closeOnePostProfile = function () {
+    $('closeOne').off().on('click', function (e){
+      e.preventDefault();
+
+      $('#viewPost').modal(hide);
+    })
+  }
+
+  // var bindTwoButtons = function () {
+  //   $('#userFavorites').on('click', function (e) {
+  //     e.preventDefault();
+
+  //     $('#ownFavorite').show();
+  //     $('#ownPost').hide();
+
+  //   });
+
+  //   $('#userPost').on('click', function (e) {
+  //     e.preventDefault();
+
+  //     $('#ownFavorite').hide();
+  //     $('#ownPost').show();
+
+  //    })
+  // };
 
   var init = function () {
     bindCreateJournal();
-    bindTwoButtons
+    //bindTwoButtons();
+    showOnePostProfile();
+    closeOnePostProfile
   }
 
   init();

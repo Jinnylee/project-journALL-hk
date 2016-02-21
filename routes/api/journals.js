@@ -53,6 +53,8 @@ exports.register = function (server, options, next) {
             var session  = request.yar.get('journal_session');
             //getting data journal from ajax
             var journal  = request.payload;
+            var journalTags = journal.tags;
+            var array = journalTags.split(',');
 
             var newJournal = {
               "user_id": ObjectID(session.user_id),
@@ -61,7 +63,7 @@ exports.register = function (server, options, next) {
               "date": new Date(),
               "journal": journal.journal,
               "favorite": 0,
-              "tags": journal.tags
+              "tags": array
             };
 
             db.collection('journals').insert(newJournal, function(err, doc) {
@@ -74,6 +76,22 @@ exports.register = function (server, options, next) {
             reply(result).code(400);
           }
         })
+      }
+    },
+    // show all the searches
+    {
+      method: 'GET',
+      path: '/api/journals/searches/',
+      handler: function(request, reply) {
+        var db = request.server.plugins['hapi-mongodb'].db;
+
+          //find 6 most recent journals
+        db.collection('journals').find({}, {"sort" : ['datefield', 'asc']}).limit(6).toArray(function (err, results) {
+          if (err) { return reply(err).code(400); }
+          reply(results).code(200);
+        });
+          //.limit(6).sort({ date: -1 })
+
       }
     }
   ]);
