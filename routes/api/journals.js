@@ -57,8 +57,8 @@ exports.register = function (server, options, next) {
             var newJournal = {
               "user_id": ObjectID(session.user_id),
               "title": journal.title,
-              // "username": ObjectID.username,
-              // "date": ISODate(),
+              "username": session.username,
+              "date": new Date(),
               "journal": journal.journal,
               "favorite": 0,
               "tags": journal.tags

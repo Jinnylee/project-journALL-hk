@@ -50,6 +50,7 @@ exports.register = function(server, options, next) {
                   //create session when user signs up
                   var newSession = {
                     "session_id": randomKeyGenerator(),
+                    "username": user.username,
                     "user_id": newUser._id
                   };
 
@@ -97,6 +98,7 @@ exports.register = function(server, options, next) {
 
                   var newSession = {
                     "session_id": randomKeyGenerator(),
+                    "username": user.username,
                     "user_id": userMongo._id
                   };
 
