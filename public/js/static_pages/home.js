@@ -26,7 +26,8 @@ $(document).ready(function () {
       '<div id="singledate">' + date +
       '<div id="singlejournal>' + journal +
       '<div id="singlefavorite>' + favorite +
-    '</div>'
+    '</div>' +
+    '<button type="button" class="btn btn-primary" id="like" data-id="' + id + '"><i class="fa fa-heart"></i> Favorite</button>';
 
     $('.oneBody').empty();
     $('.oneTitle').empty();
@@ -69,8 +70,9 @@ $(document).ready(function () {
         url: '/api/journals/' + id,
         success: function (response) {
           console.log(response);
-          appendSinglePost(response.title, response.username, response.date, response.journal, response.favorite);
+          appendSinglePost(response.title, response.username, response.date, response.journal, response.favorite, response._id);
           $('#viewPost').modal('show');
+          favoritePost(response._id);
         },
         error: function (response) {
           console.log("Please Log in first", response);
@@ -78,7 +80,28 @@ $(document).ready(function () {
         }
       })
     })
-  }
+  };
+
+  // var favoritePost = function () {
+  //   $('#like').off().on('click', function (e) {
+  //     e.preventDefault();
+
+  //     var id = $(this).data("id");
+
+  //     $.ajax({
+  //       method: "PUT",
+  //       url: "/api/journals/" + id,
+  //       success: function (response, status) {
+  //         console.log("added favorite!", response);
+
+  //       },
+  //       error: function (response, status) {
+  //         console.log("can't add favorite!", response);
+  //       }
+  //     });
+
+  //   })
+  // };
 
   var init = function () {
     showPopular();

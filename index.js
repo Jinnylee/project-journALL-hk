@@ -10,12 +10,13 @@ server.connection({
 
 // plugins that needs to be registered
 var plugins = [
-  { register: require('vision')}, // views
-  { register: require('inert')}, // public files hosting
-  { register: require('./routes/static_pages.js')},
-  { register: require('./routes/api/auth.js')},
-  { register: require('./routes/api/journals.js')},
+  { register: require('vision') }, // views
+  { register: require('inert') }, // public files hosting
+  { register: require('./routes/static_pages.js') },
+  { register: require('./routes/api/auth.js') },
+  { register: require('./routes/api/journals.js') },
   { register: require('./routes/api/profile.js') },
+  //{ register: require('./routes/api/favorite.js') },
   { register: require('hapi-mongodb'), // setup the mongo connect
    options: {
       "url": process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/journall",
