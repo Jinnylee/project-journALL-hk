@@ -34,14 +34,23 @@ exports.register = function(server, options, next) {
 
                 user.password = hash;
 
+                var newUser = {
+                  "email" : user.email,
+                  "name"  : user.name,
+                  "username" : user.username,
+                  "password" : user.password,
+                  "entries" : 0,
+                  "favorite" : 0
+                }
+
                 // Store hash in your password DB.
-                db.collection('users').insert(user, function(err, doc) {
+                db.collection('users').insert(newUser, function(err, doc) {
                   if (err) { return reply('Internal MongoDB error', err).code(400); }
 
                   //create session when user signs up
                   var newSession = {
                     "session_id": randomKeyGenerator(),
-                    "user_id": user._id
+                    "user_id": newUser._id
                   };
 
                   db.collection('sessions').insert(newSession, function(err, result) {
