@@ -18,7 +18,6 @@ $(document).ready(function () {
         data: user,
         success: function (response) {
           window.location.href = "/";
-          showUsername(response.username);
         },
         error: function (response) {
           var text = response.responseJSON ? response.responseJSON.message : response.responseText;
