@@ -21,7 +21,7 @@ module.exports = function(request, callback) {
 
         return callback({
           "authenticated": true,
-          "CurrentUser": user,
+          "currentUser": user,
           "message": "Authorized"
         });
       });

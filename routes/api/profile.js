@@ -17,7 +17,8 @@ exports.register = function (server, options, next) {
             function (err, user) {
               if (err) { return reply('Internal MongoDB error', err).code(400); }
 
-              reply.view('profile', {user:user, authenticated: result.authenticated, CurrentUser: user}).code(200);
+                result['user'] = user;
+                reply.view('profile', result).code(200);
             }
           )
         });
