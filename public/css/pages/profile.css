@@ -3,3 +3,16 @@
   border-radius: 10px;
 
 }
+
+#entryInput {
+  height: 300px;
+}
+
+#userInformation{
+  text-align: center;
+
+}
+
+#userPostsFavorites {
+  text-align: center;
+}

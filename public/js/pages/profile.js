@@ -36,14 +36,14 @@ $(document).ready(function () {
 
   var appendOwnJournals = function (title, username, date, journal, favorite, id) {
     var divs =
-    '<div class="entries col-xs-4">' +
+    '<span><div class="entries col-xs-4">' +
       '<div id="title">' + title + '</div>' +
       '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
       '<div id="date">' + date + '</div>'+
       '<div id="journal">' + journal + '</div>' +
       '<div id="favorite"><i class="fa fa-heart-o"></i>' + ' ' + favorite + '</div>' +
       '<button class="btn btn-default userpost" data-id="' + id + '">' + 'View' + '</a>' +
-    '</div><br>';
+    '</div><span>';
 
     $('#userPostsFavorites').append(divs);
   }
