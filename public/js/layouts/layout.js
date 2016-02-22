@@ -90,21 +90,23 @@ $(document).ready(function () {
       e.preventDefault();
 
       var searchTags = $('.searchTags').val();
-      var searches = searchTags.split(',');
-      console.log(searches);
+      // var searches = searchTags.split(',');
+      console.log(searchTags)
 
       $.ajax({
         type: "GET",
-        url: "/api/journals/searches/",
-        data: searchTags,
+        url: "/api/journals/searches",
+        data: {
+          tags: searchTags
+        },
         success: function (response) {
           console.log(response, "responded")
-          // $('#mostPopular').empty();
-          // appendSearched();
+          $('#mostPopular').empty();
+          appendSearched();
         },
         error: function (response) {
           $('#mostPopular').empty();
-          // noSearch();
+          noSearch();
         }
       })
     })

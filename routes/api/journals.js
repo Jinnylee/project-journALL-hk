@@ -2,6 +2,7 @@ var Authenticated = require("../modules/authenticated.js");
 
 exports.register = function (server, options, next) {
   server.route([
+    //show journals on  main page
     {
       method: 'GET',
       path: '/api/journals',
@@ -17,7 +18,8 @@ exports.register = function (server, options, next) {
 
       }
     },
-    { // showing content in modal of one post
+    // showing content in modal of one post
+    {
       method: 'GET',
       path: '/api/journals/{id}',
       handler: function(request, reply) {
@@ -38,11 +40,11 @@ exports.register = function (server, options, next) {
         });
       }
     },
+    //create a post
     {
       method: 'POST',
       path: '/api/journals',
       handler: function(request, reply) {
-        console.log(request);
         Authenticated(request, function (result) {
           if (result.authenticated){
             //connecting with server
@@ -54,7 +56,8 @@ exports.register = function (server, options, next) {
             //getting data journal from ajax
             var journal  = request.payload;
             var journalTags = journal.tags;
-            var array = journalTags.split(',');
+            var array = journalTags.split(',').map(function(word) { return word.trim(); });
+            console.log(array);
 
             var newJournal = {
               "user_id": ObjectID(session.user_id),
@@ -68,7 +71,7 @@ exports.register = function (server, options, next) {
 
             db.collection('journals').insert(newJournal, function(err, doc) {
               if (err) { return reply ('Internal MongoDB error',err).code(400);}
-
+              console.log(doc)
               reply(doc).code(200);
             })
           } else {
@@ -87,13 +90,12 @@ exports.register = function (server, options, next) {
           if (result.authenticated){
 
             var db = request.server.plugins['hapi-mongodb'].db;
-            var searches = request.payload;
+            var searches = request.query.tags.split(',');
             // var searches = searchTags.split(',');
-            console.log(request);
-
-            db.collection('journals').find({tags: { $in: searches}}, function (err, doc) {
+            console.log(searches);
+            db.collection('journals').find({tags: { $in: searches}}).toArray(function (err, doc) {
               if (err) { return reply ('Internal MongoDB error', err).code(400);}
-
+              console.log(doc);
               reply(doc).code(200);
             });
 
