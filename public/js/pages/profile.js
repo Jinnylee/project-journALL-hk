@@ -45,7 +45,7 @@ $(document).ready(function () {
 
       $('#viewPost').modal(hide);
     })
-  }
+  };
 
   // var bindTwoButtons = function () {
   //   $('#userFavorites').on('click', function (e) {
@@ -63,6 +63,10 @@ $(document).ready(function () {
   //     $('#ownPost').show();
 
   //    })
+  // };
+
+  // var showOwnEntries = function () {
+
   // };
 
   var init = function () {

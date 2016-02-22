@@ -100,9 +100,10 @@ $(document).ready(function () {
           tags: searchTags
         },
         success: function (response) {
-          console.log(response, "responded")
           $('#mostPopular').empty();
-          appendSearched();
+          response.forEach(function(elem, index) {
+            appendSearched(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
+          })
         },
         error: function (response) {
           $('#mostPopular').empty();

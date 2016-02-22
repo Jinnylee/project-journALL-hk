@@ -91,9 +91,9 @@ exports.register = function (server, options, next) {
 
             var db = request.server.plugins['hapi-mongodb'].db;
             var searches = request.query.tags.split(',');
-            // var searches = searchTags.split(',');
-            console.log(searches);
-            db.collection('journals').find({tags: { $in: searches}}).toArray(function (err, doc) {
+            var arraysearch = searches.map(function(word) { return word.trim(); });
+
+            db.collection('journals').find({tags: { $all: arraysearch}}).toArray(function (err, doc) {
               if (err) { return reply ('Internal MongoDB error', err).code(400);}
               console.log(doc);
               reply(doc).code(200);
