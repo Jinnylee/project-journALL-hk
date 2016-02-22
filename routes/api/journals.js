@@ -126,30 +126,31 @@ exports.register = function (server, options, next) {
       }
     },
     //show content in modal of one post
-    // {
-    //   method: 'GET',
-    //   path: 'api/profile/{username}/journals/{id}',
-    //   handler: function (request, reply) {
-    //     console.log(request);
-    //     Authenticated(request, function(result) {
-    //       if (result.authenticated) {
-    //         var db = request.server.plugins['hapi-mongodb'].ObjectID;
-    //         var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
-    //         var id = ObjectID(request.params.id);
-    //         var username = encodeURIComponent(request.params.username);
+    {
+      method: 'GET',
+      path: '/api/profile/{username}/journals/{id}',
+      handler: function (request, reply) {
+        console.log(request, "connected!");
+        Authenticated(request, function(result) {
+          if (result.authenticated) {
+            var db = request.server.plugins['hapi-mongodb'].db;
+            var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+            var id = ObjectID(request.params.id);
+            var username = encodeURIComponent(request.params.username);
+            console.log(id);
 
-    //     //     db.collection('journals').findOne({"_id": id}, function (err, results) {
-    //     //       if (err) { return reply(err).code(400); }
-    //     //       reply(results).code(200);
-    //     //     });
+            db.collection('journals').findOne({"_id": id}, function (err, results) {
+              if (err) { return reply(err).code(400); }
+              reply(results).code(200);
+            });
 
 
-    //       } else {
-    //         reply(result).code(400);
-    //       }
-    //     })
-    //   }
-    // }
+          } else {
+            reply(result).code(400);
+          }
+        })
+      }
+    }
 
   ]);
 

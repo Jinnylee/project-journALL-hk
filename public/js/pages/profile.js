@@ -58,6 +58,7 @@ $(document).ready(function () {
         response.forEach(function(elem, index) {
           appendOwnJournals(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
           console.log(elem);
+          showOwnOneEntry();
         })
       },
       error: function(response, status) {
@@ -100,11 +101,11 @@ $(document).ready(function () {
 
       $.ajax({
         method: "GET",
-        url: 'api/profile/' + username + '/journals/' + id,
+        url: '/api/profile/' + username + '/journals/' + id,
         success: function (response) {
           console.log(response);
-          // appendSinglePostOwn(response.title, response.username, response.date, response.journal, response.favorite, response._id);
-          // $('#viewOnePost').modal('show');
+          $('#viewOwnPost').modal('show');
+          appendSinglePostOwn(response.title, response.username, response.date, response.journal, response.favorite, response._id);
         },
         error: function (response) {
           console.log(response);
@@ -134,7 +135,7 @@ $(document).ready(function () {
   var init = function () {
     bindCreateJournal();
     showOwnEntries();
-    showOwnOneEntry();
+    // showOwnOneEntry();
     //bindTwoButtons();
   }
 
