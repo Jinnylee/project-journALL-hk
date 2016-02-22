@@ -14,6 +14,7 @@ $(document).ready(function () {
     $('#mostPopular').append(divs);
   };
 
+  // populating modal
   var appendSinglePost = function (title, username, date, journal, favorite, id) {
     var title =
     '<div id="singletitle">' +
@@ -41,24 +42,23 @@ $(document).ready(function () {
 
   //show 6 most popular journals
   var showPopular = function () {
-
     $.ajax({
-        url: "/api/journals",
-        method: "GET",
-        success: function (response, status) {
-          console.log(response);
-          response.forEach(function(elem, index){
-            appendPopularJournals(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
-          })
-          showOnePost();
-        },
-        error: function (response, status) {
-          console.log(response);
-        }
-      });
-
+      url: "/api/journals",
+      method: "GET",
+      success: function (response, status) {
+        console.log(response);
+        response.forEach(function(elem, index){
+          appendPopularJournals(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
+        })
+        showOnePost();
+      },
+      error: function (response, status) {
+        console.log(response);
+      }
+    });
   };
 
+  // Retrieving info to populate modal
   var showOnePost = function () {
     $('.view-btn').off().on('click', function (e) {
       e.preventDefault();
@@ -72,40 +72,39 @@ $(document).ready(function () {
           console.log(response);
           appendSinglePost(response.title, response.username, response.date, response.journal, response.favorite, response._id);
           $('#viewPost').modal('show');
-          favoritePost(response._id);
         },
         error: function (response) {
           console.log("Please Log in first", response);
-          //$('#viewPost').modal('show');
         }
       })
     })
   };
 
-  // var favoritePost = function () {
-  //   $('#like').off().on('click', function (e) {
-  //     e.preventDefault();
+  // linking post
+  var favoritePost = function () {
+    $('#like').off().on('click', function (e) {
+      e.preventDefault();
 
-  //     var id = $(this).data("id");
+      var id = $(this).data("id");
 
-  //     $.ajax({
-  //       method: "PUT",
-  //       url: "/api/journals/" + id,
-  //       success: function (response, status) {
-  //         console.log("added favorite!", response);
+      $.ajax({
+        method: "PUT",
+        url: "/api/journals/" + id,
+        success: function (response, status) {
+          console.log("added favorite!", response);
 
-  //       },
-  //       error: function (response, status) {
-  //         console.log("can't add favorite!", response);
-  //       }
-  //     });
+        },
+        error: function (response, status) {
+          console.log("can't add favorite!", response);
+        }
+      });
 
-  //   })
-  // };
+    })
+  };
 
   var init = function () {
     showPopular();
-    showOnePostProfile
+    // favoritePost()
   };
 
   init();

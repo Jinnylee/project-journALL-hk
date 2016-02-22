@@ -65,10 +65,56 @@ $(document).ready(function () {
     });
   };
 
+  var appendSearched = function (title, username, date, journal, favorite, id) {
+    var divs =
+    '<div class="entries col-xs-4">' +
+      '<div id="title">' + title + '</div>' +
+      '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
+      '<div id="date">' + date + '</div>'+
+      '<div id="journal">' + journal + '</div>' +
+      '<div id="favorite"><i class="fa fa-heart-o"></i>' + ' ' + favorite + '</div>' +
+      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'View' + '</a>'
+    '</div><br>';
+    console.log(id);
+    $('#mostPopular').append(divs);
+  };
+
+  var noSearch = function () {
+    var message = '<div>No matching journals</div>'
+    $('#mostPopular').append(message);
+
+  }
+
+  var search = function () {
+    $('.searchbar').on('submit', function (e) {
+      e.preventDefault();
+
+      var searchTags = $('.searchTags').val();
+      var searches = searchTags.split(',');
+      console.log(searches);
+
+      $.ajax({
+        type: "GET",
+        url: "/api/journals/searches/",
+        data: searchTags,
+        success: function (response) {
+          console.log(response, "responded")
+          // $('#mostPopular').empty();
+          // appendSearched();
+        },
+        error: function (response) {
+          $('#mostPopular').empty();
+          // noSearch();
+        }
+      })
+    })
+  };
+
   var init = function () {
     bindSignin();
     bindSignup();
     bindSignout();
+    search();
   };
 
   init();

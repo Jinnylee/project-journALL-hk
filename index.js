@@ -12,10 +12,9 @@ server.connection({
 var plugins = [
   { register: require('vision') }, // views
   { register: require('inert') }, // public files hosting
-  { register: require('./routes/static_pages.js') },
+  { register: require('./routes/pages.js') },
   { register: require('./routes/api/auth.js') },
   { register: require('./routes/api/journals.js') },
-  { register: require('./routes/api/profile.js') },
   //{ register: require('./routes/api/favorite.js') },
   { register: require('hapi-mongodb'), // setup the mongo connect
    options: {
@@ -45,7 +44,7 @@ server.register(plugins, function(err){
   // configure views
   server.views({
     engines: {html: require('ejs')},
-    path: Path.join(__dirname, 'views/static_pages'),
+    path: Path.join(__dirname, 'views/pages'),
     layout: true,
     layoutPath: Path.join(__dirname, 'views/layouts')
   });

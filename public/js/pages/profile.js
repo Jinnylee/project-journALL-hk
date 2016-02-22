@@ -21,6 +21,7 @@ $(document).ready(function () {
         data: journal,
         success: function (response) {
           console.log(response)
+          $('#create-modal').modal('hide');
         },
         error: function (response) {
           console.log("no post to add", response);
