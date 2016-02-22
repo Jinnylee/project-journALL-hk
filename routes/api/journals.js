@@ -104,9 +104,29 @@ exports.register = function (server, options, next) {
         }
         })
       }
-    }
-  ]);
+    },
+    //show journals on profile page
+    {
+      method: 'GET',
+      path: '/api/profile/{username}',
+      handler: function (request, reply) {
+        console.log(request);
+        Authenticated(request, function (result) {
+          if (result.authenticated){
+            var db = request.server.plugins['hapi-mongodb'].db;
+            var username = encodeURIComponent(request.params.username);
 
+            db.collection('journals').find({"username": username}).limit(6).toArray(function(err, doc) {
+          if (err) { return reply ('Internal MongoDB error', err).code(400);}
+            reply(doc).code(200);
+          });
+        } else{
+          reply (result).code(400);
+        }
+        });
+      }
+    }
+]);
   next();
 };
 

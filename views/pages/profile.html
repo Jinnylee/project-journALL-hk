@@ -19,39 +19,6 @@
   </div>
 
 
-<!-- modal to show journal -->
-<div class="container-fluid">
-  <div class="row">
-    <% journals.forEach(function(elem){ %>
-      <div class="col-xs-12 col-sm-4 ownPost">
-        <div><%= elem.title %></div>
-        <div><%= elem.username %></div>
-        <div><%= elem.date %></div>
-        <div><%= elem.journal %></div>
-        <div><%= elem.favorite %></div>
-        <button class="btn btn-default view-btn <%= elem._id %>">View</button>
-      </div>
-    <% }) %>
-  </div>
-  <!--<a href="">see more...</a>-->
-</div>
-
-<!-- modal to show favorites
-<div class="container-fluid">
-  <div class="row">
-    <% journals.forEach(function(elem){ %>
-      <div class="col-xs-12 col-sm-4 ownFavorite">
-        <span><p><%= elem.title %></p></span>
-        <span><p><%= elem.username %></p></span>
-        <span><p><%= elem.date %></p></span>
-        <span><p><%= elem.journal %></p></span>
-        <span><p><%= elem.favorite %></p></span>
-      </div>
-    <% }) %>
-  </div>
-  <a href="">see more...</a>
-</div>-->
-
 <!-- modal for showing individual post-->
 <div id="ownMostRecent"></div>
 

@@ -34,13 +34,12 @@ exports.register = function (server, options, next) {
             function (err, user) {
               if (err) { return reply('Internal MongoDB error', err).code(400); }
 
-              db.collection('journals').find({"username": username}).limit(6).toArray(function (err, journals) {
-                if (err) { return reply ('Internal MongoDB error', err).code(400);}
+              // db.collection('journals').find({"username": username}).limit(6).toArray(function (err, journals) {
+              //   if (err) { return reply ('Internal MongoDB error', err).code(400);}
 
-                result['journals'] = journals;
+                //result['journals'] = journals;
                 result['user'] = user;
                 reply.view('profile', result).code(200);
-              });
             }
           )
         });
