@@ -15,6 +15,8 @@ $(document).ready(function () {
 
       console.log(journal);
 
+      var username = window.location.pathname.split('/')[2]
+
       $.ajax({
         method: 'POST',
         url: '/api/journals',
@@ -22,6 +24,7 @@ $(document).ready(function () {
         success: function (response) {
           console.log(response)
           $('#create-modal').modal('hide');
+          window.location.href = "/profile/" + username;
         },
         error: function (response) {
           console.log("no post to add", response);
@@ -64,7 +67,6 @@ $(document).ready(function () {
   var showOwnEntries = function () {
 
     var username = window.location.pathname.split('/')[2]
-    console.log(username);
     $.ajax({
       url: "/api/profile/" + username,
       method: "GET",

@@ -10,7 +10,7 @@ exports.register = function (server, options, next) {
         var db = request.server.plugins['hapi-mongodb'].db;
 
           //find 6 most recent journals
-        db.collection('journals').find({}, {"sort" : ['datefield', 'asc']}).limit(6).toArray(function (err, results) {
+        db.collection('journals').find().sort({date: -1}).limit(6).toArray(function (err, results) {
           if (err) { return reply(err).code(400); }
           reply(results).code(200);
         });
@@ -93,7 +93,7 @@ exports.register = function (server, options, next) {
             var searches = request.query.tags.split(',');
             var arraysearch = searches.map(function(word) { return word.trim(); });
 
-            db.collection('journals').find({tags: { $all: arraysearch}}).toArray(function (err, doc) {
+            db.collection('journals').find({tags: { $all: arraysearch}}).sort({date: -1}).limit(12).toArray(function (err, doc) {
               if (err) { return reply ('Internal MongoDB error', err).code(400);}
               console.log(doc);
               reply(doc).code(200);
@@ -115,8 +115,7 @@ exports.register = function (server, options, next) {
           if (result.authenticated){
             var db = request.server.plugins['hapi-mongodb'].db;
             var username = encodeURIComponent(request.params.username);
-
-            db.collection('journals').find({"username": username}).limit(6).toArray(function(err, doc) {
+            db.collection('journals').find({"username": username}).sort({date: -1}).limit(6).toArray(function(err, doc) {
           if (err) { return reply ('Internal MongoDB error', err).code(400);}
             reply(doc).code(200);
           });
