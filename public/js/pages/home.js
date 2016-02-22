@@ -8,9 +8,9 @@ $(document).ready(function () {
       '<div id="date">' + date + '</div>'+
       '<div id="journal">' + journal + '</div>' +
       '<div id="favorite"><i class="fa fa-heart-o"></i>' + ' ' + favorite + '</div>' +
-      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'View' + '</a>'
+      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'View' + '</a>' +
     '</div><br>';
-    console.log(id);
+
     $('#mostPopular').append(divs);
   };
 
@@ -64,12 +64,12 @@ $(document).ready(function () {
       e.preventDefault();
 
       var id = $(this).data("id");
+      console.log(id);
 
       $.ajax({
         method: "GET",
         url: '/api/journals/' + id,
         success: function (response) {
-          console.log(response);
           appendSinglePost(response.title, response.username, response.date, response.journal, response.favorite, response._id);
           $('#viewPost').modal('show');
         },

@@ -24,16 +24,16 @@ exports.register = function (server, options, next) {
       path: '/api/journals/{id}',
       handler: function(request, reply) {
         Authenticated(request, function (result) {
-        if (result.authenticated) { // loggin in
+          if (result.authenticated) { // loggin in
 
-          var db = request.server.plugins['hapi-mongodb'].db;
-          var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
-          var id = ObjectID(request.params.id);
+            var db = request.server.plugins['hapi-mongodb'].db;
+            var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+            var id = ObjectID(request.params.id);
 
-          db.collection('journals').findOne({"_id": id}, function (err, results) {
-            if (err) { return reply(err).code(400); }
-            reply(results).code(200);
-          });
+            db.collection('journals').findOne({"_id": id}, function (err, results) {
+              if (err) { return reply(err).code(400); }
+              reply(results).code(200);
+            });
           } else {
             reply(result).code(400);
           }
@@ -73,12 +73,12 @@ exports.register = function (server, options, next) {
               if (err) { return reply ('Internal MongoDB error',err).code(400);}
               console.log(doc)
               reply(doc).code(200);
-            })
+            });
           } else {
             // can't create a post if you are not logged in
             reply(result).code(400);
           }
-        })
+        });
       }
     },
     // show all the searches
@@ -102,7 +102,7 @@ exports.register = function (server, options, next) {
         } else{
           reply(result).code(400);
         }
-        })
+        });
       }
     },
     //show journals on profile page
@@ -124,8 +124,35 @@ exports.register = function (server, options, next) {
         }
         });
       }
-    }
-]);
+    },
+    //show content in modal of one post
+    // {
+    //   method: 'GET',
+    //   path: 'api/profile/{username}/journals/{id}',
+    //   handler: function (request, reply) {
+    //     console.log(request);
+    //     Authenticated(request, function(result) {
+    //       if (result.authenticated) {
+    //         var db = request.server.plugins['hapi-mongodb'].ObjectID;
+    //         var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+    //         var id = ObjectID(request.params.id);
+    //         var username = encodeURIComponent(request.params.username);
+
+    //     //     db.collection('journals').findOne({"_id": id}, function (err, results) {
+    //     //       if (err) { return reply(err).code(400); }
+    //     //       reply(results).code(200);
+    //     //     });
+
+
+    //       } else {
+    //         reply(result).code(400);
+    //       }
+    //     })
+    //   }
+    // }
+
+  ]);
+
   next();
 };
 
