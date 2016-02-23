@@ -73,13 +73,28 @@ $(document).ready(function () {
     });
   };
 
-  // bind button on modal to delete journal
+  // delete journal
   var bindDeleteJournal = function () {
-    $('#deletePost').on('submit', function (e){
+    $('.deletePost').off().on('click', function (e){
       e.preventDefault();
+
       console.log("request sent!");
 
       var id = $(this).data("id");
+      var username = window.location.pathname.split('/')[2]
+
+      $.ajax({
+        url: '/api/journals/' + id,
+        method: 'DELETE',
+        success: function (response, status) {
+          console.log(response);
+          $('#viewOwnPost').modal('hide');
+          window.location.href = "/profile/" + username;
+        },
+        error: function (response, status) {
+          console.log(response);
+        }
+      })
     })
   }
 
@@ -92,7 +107,7 @@ $(document).ready(function () {
       '<div id="date">' + date + '</div>'+
       '<div id="journal">' + journal + '</div>' +
       '<div id="favorite"><i class="fa fa-heart-o"></i>' + ' ' + favorite + '</div>' +
-      '<button class="btn btn-default userpost" data-id="' + id + '">' + 'View' + '</a>' +
+      '<button class="btn btn-default userpost" data-id="' + id + '">' + 'Read' + '</a>' +
     '</div><span>';
 
     $('#userPostsFavorites').append(divs);
@@ -134,6 +149,7 @@ $(document).ready(function () {
     '</div>' +
     '<button type="button" class="btn btn-primary" id="like" data-id="' + id + '"><i class="fa fa-heart"></i> Favorite</button>'
 
+    $('.deletePost').data('id', id);
     $('#editJournal').data('id', id);
     $('#edit-title').val(title);
     $('#edit-tags').val(title);
@@ -191,7 +207,7 @@ $(document).ready(function () {
     bindCreateJournal();
     openEditModal();
     bindEditJournal();
-    bindDeleteJournal()
+    bindDeleteJournal();
     showOwnEntries();
     //bindTwoButtons();
   }

@@ -132,6 +132,39 @@ exports.register = function (server, options, next) {
         });
       }
     },
+    // delete a post
+    {
+      method: 'DELETE',
+      path: '/api/journals/{id}',
+      handler: function (request, reply) {
+        Authenticated(request, function (result) {
+          if (result.authenticated) {
+            var db = request.server.plugins['hapi-mongodb'].db;
+            var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+            var session = request.yar.get('journal_session');
+
+            var id = ObjectID(request.params.id);
+            var user_id = ObjectID(session.user_id);
+
+            db.collection('journals').findOne({"_id":id}, function (err, journal) {
+              if(err) { return reply(err).code(400); }
+
+              if (journal.user_id.toString() === user_id.toString()) {
+                db.collection('journals').remove({'_id':id}, function (err, doc) {
+                  if (err) { return reply(err).code(400); }
+                  reply(doc).code(200);
+                });
+              } else {
+                reply ({message: "This is not your journal."}).code(400);
+              }
+            });
+          } else {
+            reply(result).code(400);
+          }
+        //Authenticated
+        })
+      }
+    },
     // show all the searches
     {
       method: 'GET',

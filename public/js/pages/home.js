@@ -8,7 +8,7 @@ $(document).ready(function () {
       '<div id="date">' + date + '</div>'+
       '<div id="journal">' + journal + '</div>' +
       '<div id="favorite"><i class="fa fa-heart-o"></i>' + ' ' + favorite + '</div>' +
-      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'View' + '</a>' +
+      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
     '</div><br>';
 
     $('#mostPopular').append(divs);
