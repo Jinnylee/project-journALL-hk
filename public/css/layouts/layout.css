@@ -1,13 +1,30 @@
 body {
   font-family: 'Quicksand', cursive, Times, serif;
+  font-size: 15px;
+}
+
+.navbar-brand {
+  font-size: 40px;
 }
 
 .searchTags {
   padding: 5px;
-  width: 800px;
+  font-size: 15px;
 }
 
-.form-control {
-  width: 400px;
-  background-color: none;
+.searchSubmit {
+  font-size: 15px;
+}
+
+#userlink {
+  font-size: 15px;
+}
+
+a {
+  font-size: 15px;
+}
+
+#signout-btn {
+  margin-top: 8px;
+  font-size: 15px;
 }

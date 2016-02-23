@@ -2,7 +2,7 @@ var Authenticated = require("../modules/authenticated.js");
 
 exports.register = function (server, options, next) {
   server.route([
-    //show journals on  main page
+    //show journals on  main page: recent
     {
       method: 'GET',
       path: '/api/journals',
@@ -15,6 +15,19 @@ exports.register = function (server, options, next) {
           reply(results).code(200);
         });
           //.limit(6).sort({ date: -1 })
+
+      }
+    },
+    {
+      method:'GET',
+      path: '/api/journals/popular',
+      handler: function(request, reply) {
+        var db = request.server.plugins['hapi-mongodb'].db;
+
+        db.collection('journals').find().sort({favorite: -1}).limit(4).toArray(function (err, results) {
+          if (err) { return reply(err).code(400); }
+          reply(results).code(200);
+        });
 
       }
     },
@@ -169,14 +182,18 @@ exports.register = function (server, options, next) {
       method: 'GET',
       path: '/api/journals/searches',
       handler: function(request, reply) {
+        console.log(request);
         Authenticated(request, function (result) {
           if (result.authenticated){
 
             var db = request.server.plugins['hapi-mongodb'].db;
             var searches = request.query.tags;
             var arraysearch = searches.trim().replace(/\s/, '').split(',');
+            console.log(arraysearch)
 
             db.collection('journals').find({tags: { $all: arraysearch}}).sort({date: -1}).limit(12).toArray(function (err, journals) {
+
+              console.log(journals);
               if (err) { return reply ('Internal MongoDB error', err).code(400);}
 
               if (journals.length != 0) {

@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  var appendPopularJournals = function (title, username, date, favorite, id) {
+  var appendSearchJournals = function (title, username, date, favorite, id) {
     var divs =
     '<div class="entries col-xs-4" data-id="' + id + '">' +
       '<div id="title">' + title + '</div>' +
@@ -15,6 +15,54 @@ $(document).ready(function () {
 
     $('.mainarea').append(divs);
   };
+
+  var appendPopularJournals = function (title, username, date, favorite, id) {
+    var divs =
+    '<div class="entries col-xs-4" data-id="' + id + '">' +
+      '<div id="title">' + title + '</div>' +
+      '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
+      '<div id="date">' + date + '</div>'+
+      '<div id="favorite">' +
+        '<i class="fa fa-heart-o"></i> ' +
+        '<span>' + favorite + '</span>' +
+      '</div>' +
+      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
+    '</div>';
+
+    $('.recentArea').append(divs);
+  };
+
+  var appendRecentJournals = function (title, username, date, favorite, id) {
+    var divs =
+    '<div class="entries col-xs-6" data-id="' + id + '">' +
+      '<div id="title">' + title + '</div>' +
+      '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
+      '<div id="date">' + date + '</div>'+
+      '<div id="favorite">' +
+        '<i class="fa fa-heart-o"></i> ' +
+        '<span>' + favorite + '</span>' +
+      '</div>' +
+      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
+    '</div>';
+
+    $('.popularArea').append(divs);
+  };
+
+  var showRecent = function () {
+    $.ajax({
+      url: "/api/journals/popular",
+      method: "GET",
+      success: function (response,status) {
+        response.forEach(function(elem, index) {
+          appendRecentJournals(elem.title, elem.username, elem.date, elem.favorite, elem.id);
+        })
+        showOnePost();
+      },
+      error: function (response, status) {
+        console.log(response);
+      }
+    })
+  }
 
   // populating modal
   var appendSinglePost = function (title, username, date, journal, favorite, id) {
@@ -67,6 +115,7 @@ $(document).ready(function () {
   var showSearch = function (searchTags) {
     var decodedSearch = decodeURIComponent(searchTags);
     var keywordsStr = decodedSearch.split('=')[1];
+    console.log("request sent!")
 
     $.ajax({
       type: "GET",
@@ -77,7 +126,7 @@ $(document).ready(function () {
       success: function (response) {
         $('.mainarea').empty();
         response.forEach(function(elem, index) {
-          appendPopularJournals(elem.title, elem.username, elem.date, elem.favorite, elem._id);
+          appendSearchJournals(elem.title, elem.username, elem.date, elem.favorite, elem._id);
         })
         showOnePost();
       },
@@ -143,8 +192,9 @@ $(document).ready(function () {
       $("#page-title").text("Matching Journals");
       showSearch(search);
     } else {
-      $("#page-title").text("Most Recent Journals");
+      $("#page-title").text("JournALL");
       showPopular();
+      showRecent();
     }
     favoritePost();
   };

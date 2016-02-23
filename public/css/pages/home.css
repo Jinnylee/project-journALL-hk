@@ -1,6 +1,33 @@
 .entries {
   background-color: yellow;
-  border-radius: 5px;
+  border: 15px solid white;
+  border-radius: 20px;
+  padding: 10px;
+  text-align: center;
+}
+
+
+h2 {
+  margin-bottom: 20px;
+}
+
+h3 {
+
+}
+
+.popularposts {
+  border: 0;
+  margin: 0;
+}
+
+.popularUser {
+  background-color: yellow;
+  float: right;
+  height: 280px;
+  position: inline-block;
+  border: 15px solid white;
+  border-radius: 20px;
+  padding: 10px;
 }
 
 h2 {

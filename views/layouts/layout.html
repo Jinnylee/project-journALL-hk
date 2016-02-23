@@ -32,9 +32,9 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <form class="navbar-form navbar-left searchbar" role="search">
           <div class="form-group search">
-            <input type="text" class="form-control searchTags" placeholder="Search tags (please separate by comma)">
+            <input type="text" class="form-control searchTags" size="95" placeholder="Search tags (please separate by comma)">
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-default searchSubmit"><i class="fa fa-search"></i></button>
         </form>
         <ul class="nav navbar-nav navbar-right">
           <% if (!authenticated) { %>
@@ -42,7 +42,8 @@
             <li><button class ="btn btn-default" data-toggle="modal" data-target="#signin-modal">Sign In</a></li>
   <!--      Changing the above code from a-href to modal function: CHANGE THE AHREF TO button class, go to Bootstrap website, check out usage in bootstrap modal (IN JS section) add the classes data toggle data target into the above as attributes after class, and then also copy paste the launch demo modal code into the layout underneath the nav -->
           <% } else { %>
-            <li><a href="/profile/<%=currentUser.username%>"><%=currentUser.username%></a><button id="signout-btn" class="btn btn-default">Sign Out</button></li>
+            <li><a href="/profile/<%=currentUser.username%>"><%=currentUser.username%></a><li>
+            <li><button id="signout-btn" class="btn btn-default">Sign Out</button></li>
           <% } %>
       </ul>
       </div><!-- /.navbar-collapse -->
