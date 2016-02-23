@@ -105,7 +105,6 @@ $(document).ready(function () {
       '<div id="title">' + title + '</div>' +
       '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
       '<div id="date">' + date + '</div>'+
-      '<div id="journal">' + journal + '</div>' +
       '<div id="favorite"><i class="fa fa-heart-o"></i>' + ' ' + favorite + '</div>' +
       '<button class="btn btn-default userpost" data-id="' + id + '">' + 'Read' + '</a>' +
     '</div><span>';
@@ -144,8 +143,8 @@ $(document).ready(function () {
       '<div id="singleusername">' + username +
       '<div id="singledate">' + date +
       '<div id="singletags"> Tags:' + tags +
-      '<div id="singlejournal>' + journal +
-      '<div id="singlefavorite>' + favorite +
+      '<div id="singlejournal">' + journal +
+      '<div id="singlefavorite">' + favorite +
     '</div>' +
     '<button type="button" class="btn btn-primary" id="like" data-id="' + id + '"><i class="fa fa-heart"></i> Favorite</button>'
 
