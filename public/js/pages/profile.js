@@ -55,12 +55,16 @@ $(document).ready(function () {
         journal: $('#edit-journal').val(),
       };
 
+      var username = window.location.pathname.split('/')[2]
+
       $.ajax({
         url: "/api/journals/" + id,
         method: "PUT",
         data: editedJournal,
         success: function (response, status) {
           console.log(response);
+          $('#edit-modal').modal('hide');
+          window.location.href = "/profile/" + username;
         },
         error: function (response, status) {
           console.log(response);
