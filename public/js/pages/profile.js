@@ -176,6 +176,7 @@ $(document).ready(function () {
           console.log(response);
           $('#viewOwnPost').modal('show');
           appendSinglePostOwn(response.title, response.username, response.date, response.tags, response.journal, response.favorite, response._id);
+          favoritePost();
         },
         error: function (response) {
           console.log(response);
@@ -184,57 +185,85 @@ $(document).ready(function () {
     });
   };
 
-  var showFavoritePosts = function () {
-    $('#userFavorites').on('click', function (e) {
-      e.preventDefault();
-      console.log("request sent");
+  // var showFavoritePosts = function () {
+  //   $('#userFavorites').on('click', function (e) {
+  //     e.preventDefault();
+  //     console.log("request sent");
 
-      $('#userPostsFavorites').empty();
-      var username = window.location.pathname.split('/')[2];
-      console.log(username);
+  //     $('#userPostsFavorites').empty();
+  //     var username = window.location.pathname.split('/')[2];
+  //     console.log(username);
 
-      $.ajax({
-        url: "/api/profile/" + username + "/favorite",
-        method: "GET",
-        success: function (response, status) {
-          response.forEach(function(elem, index) {
-            appendOwnJournals(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
-            console.log(elem);
-            showOwnOneEntry();
-          })
-        },
-        error: function(response, status) {
-          console.log(response);
-        }
-      })
-    })
+  //     $.ajax({
+  //       url: "/api/profile/" + username + "/favorite",
+  //       method: "GET",
+  //       success: function (response, status) {
+  //         response.forEach(function(elem, index) {
+  //           appendOwnJournals(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
+  //           console.log(elem);
+  //           showOwnOneEntry();
 
-  };
+  //         })
+  //       },
+  //       error: function(response, status) {
+  //         console.log(response);
+  //       }
+  //     })
+  //   })
 
-  // liking post
-  var favoritePost = function () {
-    $('.like').off().on('click', function (e) {
-      e.preventDefault();
+  // };
 
-      var id = $(this).data("id");
+  // var showJournalonButton = function () {
+  //   $('#userPosts').on('click', function (e) {
+  //     e.preventDefault();
+  //     console.log("request sent!");
 
-      $.ajax({
-        method: "PUT",
-        url: "/api/journals/favorite/" + id,
-        success: function (response, status) {
-          console.log("added favorite!", response);
-          $('#singlefavorite span').empty();
-          $('#singlefavorite span').text(response.favorite);
+  //     $('#userPostsFavorites').empty();
+  //     var username = window.location.pathname.split('/')[2];
+  //     console.log(username);
 
-          $('div.entries[data-id="' + response._id +'"]').find('#favorite span').empty().text(response.favorite);
-        },
-        error: function (response, status) {
-          console.log("can't add favorite! ", response);
-        }
-      });
+  //     $.ajax({
+  //       url: "/api/profile/" + username + "/posts",
+  //       method: "GET",
+  //       success: function (response, status) {
+  //         response.forEach(function(elem, index) {
+  //           appendOwnJournals(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
+  //           console.log(elem);
+  //           showOwnOneEntry();
+  //         })
+  //       },
+  //       error: function(response, status) {
+  //         console.log(response);
+  //       }
+  //     });
 
-    })
-  };
+  //   });
+  // };
+
+  // // liking post
+  // var favoritePost = function () {
+  //   $('.like').off().on('click', function (e) {
+  //     e.preventDefault();
+
+  //     var id = $(this).data("id");
+
+  //     $.ajax({
+  //       method: "PUT",
+  //       url: "/api/journals/favorite/" + id,
+  //       success: function (response, status) {
+  //         console.log("added favorite!", response);
+  //         $('#singlefavorite span').empty();
+  //         $('#singlefavorite span').text(response.favorite);
+
+  //         $('div.entries[data-id="' + response._id +'"]').find('#favorite span').empty().text(response.favorite);
+  //       },
+  //       error: function (response, status) {
+  //         console.log("can't add favorite! ", response);
+  //       }
+  //     });
+
+  //   })
+  // };
 
   var init = function () {
     bindCreateJournal();
@@ -242,7 +271,8 @@ $(document).ready(function () {
     bindEditJournal();
     bindDeleteJournal();
     showOwnEntries();
-    showFavoritePosts();
+    // showFavoritePosts();
+    // showJournalonButton();
     //bindTwoButtons();
   }
 
