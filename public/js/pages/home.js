@@ -16,6 +16,7 @@ $(document).ready(function () {
     $('.mainarea').append(divs);
   };
 
+//actually recent journals
   var appendPopularJournals = function (title, username, date, favorite, id) {
     var divs =
     '<div class="entries col-xs-4" data-id="' + id + '">' +
@@ -32,6 +33,7 @@ $(document).ready(function () {
     $('.recentArea').append(divs);
   };
 
+//actually popular journals
   var appendRecentJournals = function (title, username, date, favorite, id) {
     var divs =
     '<div class="entries col-xs-6" data-id="' + id + '">' +
@@ -43,18 +45,19 @@ $(document).ready(function () {
         '<span>' + favorite + '</span>' +
       '</div>' +
       '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
-    '</div>';
+    '</div>'
 
     $('.popularArea').append(divs);
   };
 
+//ACTUALLY showing 4 popular
   var showRecent = function () {
     $.ajax({
       url: "/api/journals/popular",
       method: "GET",
       success: function (response,status) {
         response.forEach(function(elem, index) {
-          appendRecentJournals(elem.title, elem.username, elem.date, elem.favorite, elem.id);
+          appendRecentJournals(elem.title, elem.username, elem.date, elem.favorite, elem._id);
         })
         showOnePost();
       },
@@ -86,11 +89,7 @@ $(document).ready(function () {
     $('.oneTitle').append(title);
   };
 
-  //show recent journals
-  // var showRecent = function (elem) {
-  // };
-
-  //show 6 most popular journals
+  //ACTUALLy- showing 6 most recent
   var showPopular = function () {
     $.ajax({
       url: "/api/journals",

@@ -18,6 +18,7 @@ exports.register = function (server, options, next) {
 
       }
     },
+    //show popular posts on main page
     {
       method:'GET',
       path: '/api/journals/popular',
@@ -249,6 +250,29 @@ exports.register = function (server, options, next) {
 
           } else {
             reply(result).code(400);
+          }
+        })
+      }
+    },
+    //get favorite on profile page
+    {
+      method: 'GET',
+      path:'/api/profile/{username}/favorite',
+      handler: function (request, reply) {
+        Authenticated(request, function (result) {
+          if (result.authenticated) {
+            var db = request.server.plugins['hapi-mongodb'].db;
+            var username = encodeURIComponent(request.params.username);
+
+            db.collection('users').findOne({"username": username}, function (err, user) {
+              if (err) {return reply ('Internal MongoDB error', err).code(400);}
+
+              db.collection('journals').find({ "_id": {$in: user.favoritesList} }).toArray(function (err, journals) {
+                if (err) { return reply ('Internal MongoDB error', err).code(400);}
+
+                reply(journals).code(200);
+              })
+            })
           }
         })
       }

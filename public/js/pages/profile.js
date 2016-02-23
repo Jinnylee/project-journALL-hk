@@ -142,7 +142,7 @@ $(document).ready(function () {
     '<div id="singlebody">' +
       '<div id="singleusername">' + username +
       '<div id="singledate">' + date +
-      '<div id="singletags"> Tags:' + tags +
+      '<div id="singletags"> Tags: ' + tags +
       '<div id="singlejournal">' + journal +
       '<div id="singlefavorite"><i class="fa fa-heart-o"></i> ' + '<span>' + favorite +
     '</span></div>'
@@ -182,25 +182,34 @@ $(document).ready(function () {
         }
       })
     });
-  }
+  };
 
-  // var bindTwoButtons = function () {
-  //   $('#userFavorites').on('click', function (e) {
-  //     e.preventDefault();
+  var showFavoritePosts = function () {
+    $('#userFavorites').on('click', function (e) {
+      e.preventDefault();
+      console.log("request sent");
 
-  //     $('#ownFavorite').show();
-  //     $('#ownPost').hide();
+      $('#userPostsFavorites').empty();
+      var username = window.location.pathname.split('/')[2];
+      console.log(username);
 
-  //   });
+      $.ajax({
+        url: "/api/profile/" + username + "/favorite",
+        method: "GET",
+        success: function (response, status) {
+          response.forEach(function(elem, index) {
+            appendOwnJournals(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
+            console.log(elem);
+            showOwnOneEntry();
+          })
+        },
+        error: function(response, status) {
+          console.log(response);
+        }
+      })
+    })
 
-  //   $('#userPost').on('click', function (e) {
-  //     e.preventDefault();
-
-  //     $('#ownFavorite').hide();
-  //     $('#ownPost').show();
-
-  //    })
-  // };
+  };
 
   // liking post
   var favoritePost = function () {
@@ -233,6 +242,7 @@ $(document).ready(function () {
     bindEditJournal();
     bindDeleteJournal();
     showOwnEntries();
+    showFavoritePosts();
     //bindTwoButtons();
   }
 
