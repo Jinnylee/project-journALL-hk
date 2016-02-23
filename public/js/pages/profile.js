@@ -34,6 +34,40 @@ $(document).ready(function () {
     })
   };
 
+  var openEditModal = function () {
+    $('.editPost').on('click', function (e) {
+      e.preventDefault();
+      $('#viewOwnPost').modal('hide');
+      $('#edit-modal').modal('show');
+    })
+  }
+
+  var bindEditJournal = function () {
+    $('.editPost').on("submit"), function (e) {
+      e.preventDefault();
+      console.log("request sent");
+
+      var id = $(this).data("id");
+      var editedJournal = {
+        title: $('#edit-title').val(),
+        tags: $('#edit-tags').val(),
+        journal: $('#edit-journal').val(),
+      };
+
+      $.ajax({
+        url: "/api/journals/" + id,
+        method: "PUT",
+        data: editedJournal,
+        success: function (response, status) {
+          console.log(response);
+        },
+        error: function (response, status) {
+          console.log(response);
+        }
+      });
+    }
+  };
+
   var appendOwnJournals = function (title, username, date, journal, favorite, id) {
     var divs =
     '<span><div class="entries col-xs-4">' +
@@ -106,6 +140,7 @@ $(document).ready(function () {
           console.log(response);
           $('#viewOwnPost').modal('show');
           appendSinglePostOwn(response.title, response.username, response.date, response.journal, response.favorite, response._id);
+          //bindEditJournal();
         },
         error: function (response) {
           console.log(response);
@@ -135,6 +170,7 @@ $(document).ready(function () {
   var init = function () {
     bindCreateJournal();
     showOwnEntries();
+    openEditModal();
     // showOwnOneEntry();
     //bindTwoButtons();
   }
