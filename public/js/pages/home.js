@@ -48,7 +48,6 @@ $(document).ready(function () {
       url: "/api/journals",
       method: "GET",
       success: function (response, status) {
-        console.log(response);
         response.forEach(function(elem, index){
           appendPopularJournals(elem.title, elem.username, elem.date, elem.favorite, elem._id);
         })
@@ -59,6 +58,36 @@ $(document).ready(function () {
       }
     });
   };
+
+  var noSearch = function () {
+    var message = '<div>No matching journals</div>'
+    $('.mainarea').append(message);
+  };
+
+  var showSearch = function (searchTags) {
+    var decodedSearch = decodeURIComponent(searchTags);
+    var keywordsStr = decodedSearch.split('=')[1];
+
+    $.ajax({
+      type: "GET",
+      url: "/api/journals/searches",
+      data: {
+        tags: keywordsStr
+      },
+      success: function (response) {
+        $('.mainarea').empty();
+        response.forEach(function(elem, index) {
+          appendPopularJournals(elem.title, elem.username, elem.date, elem.favorite, elem._id);
+        })
+        showOnePost();
+      },
+      error: function (response) {
+        console.log(response);
+        $('.mainarea').empty();
+        noSearch();
+      }
+    })
+  }
 
   // Retrieving info to populate modal
   var showOnePost = function () {
@@ -83,7 +112,7 @@ $(document).ready(function () {
     })
   };
 
-  // linking post
+  // liking post
   var favoritePost = function () {
     $('#like').off().on('click', function (e) {
       e.preventDefault();
@@ -109,7 +138,14 @@ $(document).ready(function () {
   };
 
   var init = function () {
-    showPopular();
+    var search = window.location.search;
+    if (search) {
+      $("#page-title").text("Matching Journals");
+      showSearch(search);
+    } else {
+      $("#page-title").text("Most Recent Journals");
+      showPopular();
+    }
     favoritePost();
   };
 

@@ -69,9 +69,14 @@ exports.register = function (server, options, next) {
             };
 
             db.collection('journals').insert(newJournal, function(err, doc) {
-              if (err) { return reply ('Internal MongoDB error',err).code(400);}
-              console.log(doc)
-              reply(doc).code(200);
+              if (err) { return reply (err).code(400);}
+
+              db.collection('users').findOneAndUpdate({"_id":newJournal.user_id}, {$inc: {"entries":1}}, function (err, journal) {
+                if (err) {return reply(err).code(400); }
+
+                reply(doc).code(200);
+              });
+
             });
           } else {
             // can't create a post if you are not logged in
@@ -168,14 +173,18 @@ exports.register = function (server, options, next) {
           if (result.authenticated){
 
             var db = request.server.plugins['hapi-mongodb'].db;
-            var searches = request.query.tags.split(',');
-            var arraysearch = searches.map(function(word) { return word.trim(); });
+            var searches = request.query.tags;
+            var arraysearch = searches.trim().replace(/\s/, '').split(',');
 
-            db.collection('journals').find({tags: { $all: arraysearch}}).sort({date: -1}).limit(12).toArray(function (err, doc) {
+            db.collection('journals').find({tags: { $all: arraysearch}}).sort({date: -1}).limit(12).toArray(function (err, journals) {
               if (err) { return reply ('Internal MongoDB error', err).code(400);}
-              reply(doc).code(200);
-            });
 
+              if (journals.length != 0) {
+                reply(journals).code(200);
+              } else {
+                reply({message: "No journals found"}).code(400);
+              }
+            });
         } else{
           reply(result).code(400);
         }

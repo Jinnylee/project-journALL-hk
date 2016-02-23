@@ -52,7 +52,6 @@ $(document).ready(function () {
     });
   };
 
-
   var bindSignout = function () {
     $('#signout-btn').on('click', function (e) {
       $.ajax({
@@ -65,52 +64,14 @@ $(document).ready(function () {
     });
   };
 
-  var appendSearched = function (title, username, date, journal, favorite, id) {
-    var divs =
-    '<div class="entries col-xs-4">' +
-      '<div id="title">' + title + '</div>' +
-      '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
-      '<div id="date">' + date + '</div>'+
-      '<div id="journal">' + journal + '</div>' +
-      '<div id="favorite"><i class="fa fa-heart-o"></i>' + ' ' + favorite + '</div>' +
-      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>'
-    '</div><br>';
-
-    $('.mainarea').append(divs);
-  };
-
-  var noSearch = function () {
-    var message = '<div>No matching journals</div>'
-    $('.mainarea').append(message);
-
-  }
-
   var search = function () {
     $('.searchbar').on('submit', function (e) {
       e.preventDefault();
 
       var searchTags = $('.searchTags').val();
-      // var searches = searchTags.split(',');
-      console.log(searchTags)
 
-      $.ajax({
-        type: "GET",
-        url: "/api/journals/searches",
-        data: {
-          tags: searchTags
-        },
-        success: function (response) {
-          $('.mainarea').empty();
-          response.forEach(function(elem, index) {
-            appendSearched(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
-          })
-        },
-        error: function (response) {
-          $('.mainarea').empty();
-          noSearch();
-        }
-      })
-    })
+      window.location.href = "/?search=" + searchTags;
+    });
   };
 
   var init = function () {

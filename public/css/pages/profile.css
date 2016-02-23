@@ -1,8 +1,10 @@
-.ownPost {
+.entries {
   background-color: yellow;
   border-radius: 10px;
 
 }
+
+
 
 #entryInput {
   height: 300px;
