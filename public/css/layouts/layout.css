@@ -2,8 +2,8 @@ body {
   font-family: 'Quicksand', cursive, Times, serif;
 }
 
-.search {
-  width: 600px;
+.searchTags {
+  padding-right: 500px;
 }
 .form-control {
   width: 400px;

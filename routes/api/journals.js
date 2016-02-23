@@ -81,7 +81,7 @@ exports.register = function (server, options, next) {
         });
       }
     },
-    // //edit a post
+    //edit a post
     // {
     //   method: 'PUT',
     //   path: '/api/journals/{id}',
@@ -97,6 +97,16 @@ exports.register = function (server, options, next) {
     //         var user_id = ObjectID(session.user_id);
 
     //         var editedJournal = request.payload.editedJournal;
+    //         var tags = editedJournal.tags
+
+    //         var array = tags.split(',').map(function(word) { return word.trim(); });
+    //         var updateJournal = {
+    //           "title": editeJournal.title,
+    //           "tags": array,
+    //           "journal": editedJournal.journal
+    //         }
+
+    //         console.log(updateJournal);
 
     //         db.collection('journals').findOne({"_id":id}, function (err, journal) {
     //           if (err) { return reply(err).code(400); }
@@ -106,7 +116,7 @@ exports.register = function (server, options, next) {
     //           }
 
     //           if (journal.user_id.toString() === user_id.toString()) {
-    //             db.collection('journals').update({"_id": id}, {$set: editedJournal}, function (err, journal){
+    //             db.collection('journals').update({"_id": id}, {$set: updateJournal}, function (err, journal){
     //               if (err) { return reply(err).code(400); }
     //               reply(journal).code(200);
     //             });

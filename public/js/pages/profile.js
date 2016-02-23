@@ -35,15 +35,16 @@ $(document).ready(function () {
   };
 
   var openEditModal = function () {
-    $('.editPost').on('click', function (e) {
+    $('.editPost').off().on('click', function (e) {
       e.preventDefault();
-      $('#viewOwnPost').modal('hide');
       $('#edit-modal').modal('show');
+      $('#viewOwnPost').modal('hide');
     })
-  }
+  };
 
+  // bind button on modal to edit journal
   var bindEditJournal = function () {
-    $('.editPost').on("submit"), function (e) {
+    $('#editJournal').on("submit", function (e) {
       e.preventDefault();
       console.log("request sent");
 
@@ -65,9 +66,20 @@ $(document).ready(function () {
           console.log(response);
         }
       });
-    }
+    });
   };
 
+  // bind button on modal to delete journal
+  var bindDeleteJournal = function () {
+    $('#deletePost').on('submit', function (e){
+      e.preventDefault();
+      console.log("request sent!");
+
+      var id = $(this).data("id");
+    })
+  }
+
+  // append journals to page
   var appendOwnJournals = function (title, username, date, journal, favorite, id) {
     var divs =
     '<span><div class="entries col-xs-4">' +
@@ -82,8 +94,8 @@ $(document).ready(function () {
     $('#userPostsFavorites').append(divs);
   }
 
+  // get all journals
   var showOwnEntries = function () {
-
     var username = window.location.pathname.split('/')[2]
     $.ajax({
       url: "/api/profile/" + username,
@@ -101,9 +113,9 @@ $(document).ready(function () {
     })
   };
 
+  // append content to modal
   var appendSinglePostOwn = function (title, username, date, journal, favorite, id) {
-
-    var title =
+    var header =
     '<div id="singletitle">' +
       title +
     '</div>'
@@ -115,14 +127,20 @@ $(document).ready(function () {
       '<div id="singlejournal>' + journal +
       '<div id="singlefavorite>' + favorite +
     '</div>' +
-    '<button type="button" class="btn btn-primary" id="like" data-id="' + id + '"><i class="fa fa-heart"></i> Favorite</button>';
+    '<button type="button" class="btn btn-primary" id="like" data-id="' + id + '"><i class="fa fa-heart"></i> Favorite</button>'
+
+    $('#editJournal').data('id', id);
+    $('#edit-title').val(title);
+    // $('#edit-tags').val(title);
+    $('#edit-journal').val(journal);
 
     $('.body').empty();
     $('.title').empty();
     $('.body').append(body);
-    $('.title').append(title);
+    $('.title').append(header);
   };
 
+  // when button view is clicked
   var showOwnOneEntry = function () {
     $('.userpost').off().on('click', function(e) {
       e.preventDefault();
@@ -130,8 +148,6 @@ $(document).ready(function () {
 
       var id = $(this).data("id");
       var username = window.location.pathname.split('/')[2]
-      console.log(id);
-      console.log(username);
 
       $.ajax({
         method: "GET",
@@ -140,7 +156,6 @@ $(document).ready(function () {
           console.log(response);
           $('#viewOwnPost').modal('show');
           appendSinglePostOwn(response.title, response.username, response.date, response.journal, response.favorite, response._id);
-          //bindEditJournal();
         },
         error: function (response) {
           console.log(response);
@@ -169,9 +184,10 @@ $(document).ready(function () {
 
   var init = function () {
     bindCreateJournal();
-    showOwnEntries();
     openEditModal();
-    // showOwnOneEntry();
+    bindEditJournal();
+    bindDeleteJournal()
+    showOwnEntries();
     //bindTwoButtons();
   }
 
