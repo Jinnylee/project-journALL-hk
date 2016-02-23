@@ -244,6 +244,7 @@ $(document).ready(function () {
   var favoritePost = function () {
     $('.like').off().on('click', function (e) {
       e.preventDefault();
+      $('#favorite-form-message').text('');
 
       var id = $(this).data("id");
 

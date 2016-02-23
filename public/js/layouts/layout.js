@@ -3,6 +3,7 @@ $(document).ready(function () {
   var bindSignup = function () {
     $('#signup').on('submit', function (e) {
       e.preventDefault();
+      $('.error').empty();
       $('#signup-form-message').text('');
 
       var user = {
@@ -31,6 +32,7 @@ $(document).ready(function () {
   var bindSignin = function () {
     $('#signin').on('submit', function (e) {
       e.preventDefault();
+      $('#signin-form-message').text('');
 
       var user = {
         username: $('#signin [name="username"]').val(),
@@ -47,6 +49,7 @@ $(document).ready(function () {
         },
         error: function (response) {
           console.log(response);
+          $('#signin-form-message').text("Invalid password or username.")
         }
       });
     });

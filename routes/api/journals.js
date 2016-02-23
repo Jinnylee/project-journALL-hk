@@ -10,7 +10,7 @@ exports.register = function (server, options, next) {
         var db = request.server.plugins['hapi-mongodb'].db;
 
           //find 6 most recent journals
-        db.collection('journals').find().sort({date: -1}).limit(6).toArray(function (err, results) {
+        db.collection('journals').find().sort({setdate: -1}).limit(6).toArray(function (err, results) {
           if (err) { return reply(err).code(400); }
           reply(results).code(200);
         });
@@ -72,11 +72,15 @@ exports.register = function (server, options, next) {
             var journalTags = journal.tags;
             var array = journalTags.split(',').map(function(word) { return word.trim(); });
 
+            var setDate = new Date();
+            var date = setDate.toLocaleDateString();
+
             var newJournal = {
               "user_id": ObjectID(session.user_id),
               "title": journal.title,
               "username": session.username,
-              "date": new Date(),
+              "date": date,
+              "setdate": setDate,
               "journal": journal.journal,
               "favorite": 0,
               "tags": array
@@ -192,7 +196,7 @@ exports.register = function (server, options, next) {
             var arraysearch = searches.trim().replace(/\s/, '').split(',');
             console.log(arraysearch)
 
-            db.collection('journals').find({tags: { $all: arraysearch}}).sort({date: -1}).limit(12).toArray(function (err, journals) {
+            db.collection('journals').find({tags: { $all: arraysearch}}).sort({setdate: -1}).limit(12).toArray(function (err, journals) {
 
               console.log(journals);
               if (err) { return reply ('Internal MongoDB error', err).code(400);}
@@ -218,7 +222,7 @@ exports.register = function (server, options, next) {
           if (result.authenticated){
             var db = request.server.plugins['hapi-mongodb'].db;
             var username = encodeURIComponent(request.params.username);
-            db.collection('journals').find({"username": username}).sort({date: -1}).limit(6).toArray(function(err, doc) {
+            db.collection('journals').find({"username": username}).sort({setdate: -1}).limit(6).toArray(function(err, doc) {
           if (err) { return reply ('Internal MongoDB error', err).code(400);}
             reply(doc).code(200);
           });
@@ -237,7 +241,7 @@ exports.register = function (server, options, next) {
           if (result.authenticated){
             var db = request.server.plugins['hapi-mongodb'].db;
             var username = encodeURIComponent(request.params.username);
-            db.collection('journals').find({"username": username}).sort({date: -1}).toArray(function(err, doc) {
+            db.collection('journals').find({"username": username}).sort({setdate: -1}).toArray(function(err, doc) {
           if (err) { return reply ('Internal MongoDB error', err).code(400);}
             reply(doc).code(200);
           });

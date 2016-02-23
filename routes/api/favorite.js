@@ -50,40 +50,19 @@ exports.register = function (server, options, next) {
         });
       }
     },
-// method: 'GET',
-//       path: '/api/journals/{id}',
-//       handler: function(request, reply) {
-//         Authenticated(request, function (result) {
-//           if (result.authenticated) { // loggin in
-
-//             var db = request.server.plugins['hapi-mongodb'].db;
-//             var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
-//             var id = ObjectID(request.params.id);
-
-//             db.collection('journals').findOne({"_id": id}, function (err, results) {
-//               if (err) { return reply(err).code(400); }
-//               reply(results).code(200);
-//             });
-//           } else {
-//             reply(result).code(400);
-//           }
     //show most popular users
     {
       method: "GET",
       path: "/api/topuser",
       handler: function (request, reply) {
-        Authenticated(request, function (result) {
-          if (result.authenticated) {
             var db = request.server.plugins['hapi-mongodb'].db;
 
             db.collection('users').find().sort({favorite: -1}).limit(5).toArray(function (err, results) {
               if (err) { return reply(err).code(400); }
               reply(results).code(200);
             });
-
-          }
-        })
       }
+
     }
   ]);
 

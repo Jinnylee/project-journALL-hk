@@ -138,6 +138,8 @@ $(document).ready(function () {
     })
   }
 
+  var errorMessage = '<div>Please sign in first.</div>'
+
   // Retrieving info to populate modal
   var showOnePost = function () {
     $('.view-btn').off().on('click', function (e) {
@@ -156,6 +158,7 @@ $(document).ready(function () {
         },
         error: function (response) {
           console.log("Please Log in first", response);
+          $('.error').append(errorMessage);
         }
       })
     })
