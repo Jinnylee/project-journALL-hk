@@ -76,12 +76,12 @@ $(document).ready(function () {
       '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>'
     '</div><br>';
 
-    $('#mostPopular').append(divs);
+    $('.mainarea').append(divs);
   };
 
   var noSearch = function () {
     var message = '<div>No matching journals</div>'
-    $('#mostPopular').append(message);
+    $('.mainarea').append(message);
 
   }
 
@@ -100,13 +100,13 @@ $(document).ready(function () {
           tags: searchTags
         },
         success: function (response) {
-          $('#mostPopular').empty();
+          $('.mainarea').empty();
           response.forEach(function(elem, index) {
             appendSearched(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
           })
         },
         error: function (response) {
-          $('#mostPopular').empty();
+          $('.mainarea').empty();
           noSearch();
         }
       })

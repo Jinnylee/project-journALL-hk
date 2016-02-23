@@ -1,6 +1,7 @@
 <script src="/public/js/pages/profile.js"></script>
 <link rel="stylesheet" href="/public/css/pages/profile.css">
 
+<div class="mainarea">
 <div id="profile-page">
   <div id="userInformation">
     <h1><%= user.username %></h1>
@@ -20,7 +21,7 @@
 
 
 
-<div id="ownMostRecent"></div>
+<div class="ownMostRecent"></div>
 
 <!-- modal for showing individual post-->
 <div class="modal fade" id="viewOwnPost" tabindex="-1" role="dialog">
@@ -82,9 +83,9 @@
           <div id="editJournal-page">
 
             <form id="editJournal">
-              <p><input type="text" id="edit-title" name="title" placeholder="title"></p>
-              <p><input type="text" id="edit-tags" name="tags" placeholder="tags (separate by comma)"></p>
-              <p><input type="text" id="edit-journal" name="journal" id="entryInput" placeholder="journal"></p>
+              <p>Title: <input type="text" id="edit-title" name="title" placeholder="title"></p>
+              <p>Tags: <input type="text" id="edit-tags" name="tags" placeholder="tags (separate by comma)"></p>
+              <p>Journal: <input type="text" id="edit-journal" name="journal" id="entryInput" placeholder="journal"></p>
               <p><input type="submit" name="edit journal" class="btn btn-default"></p>
             </form>
 
@@ -93,5 +94,6 @@
         </div>
       </div>
     </div>
+</div>
 </div>
 

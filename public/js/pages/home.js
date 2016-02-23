@@ -11,7 +11,7 @@ $(document).ready(function () {
       '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
     '</div><br>';
 
-    $('#mostPopular').append(divs);
+    $('.mainarea').append(divs);
   };
 
   // populating modal

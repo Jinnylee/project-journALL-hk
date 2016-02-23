@@ -57,7 +57,6 @@ exports.register = function (server, options, next) {
             var journal  = request.payload;
             var journalTags = journal.tags;
             var array = journalTags.split(',').map(function(word) { return word.trim(); });
-            console.log(array);
 
             var newJournal = {
               "user_id": ObjectID(session.user_id),
@@ -86,7 +85,6 @@ exports.register = function (server, options, next) {
       method: 'PUT',
       path: '/api/journals/{id}',
       handler: function(request, reply) {
-        console.log(request);
         Authenticated(request, function (result) {
           if (result.authenticated) {
             var db       = request.server.plugins['hapi-mongodb'].db;
@@ -97,9 +95,7 @@ exports.register = function (server, options, next) {
             var user_id = ObjectID(session.user_id);
 
             var editedJournal = request.payload;
-            console.log(editedJournal);
             var tags = editedJournal.tags
-            console.log(tags);
 
             var array = tags.split(',').map(function(word) { return word.trim(); });
             var updateJournal = {
@@ -107,8 +103,6 @@ exports.register = function (server, options, next) {
               "tags": array,
               "journal": editedJournal.journal
             }
-
-            console.log(updateJournal);
 
             db.collection('journals').findOne({"_id":id}, function (err, journal) {
               if (err) { return reply(err).code(400); }
@@ -194,7 +188,6 @@ exports.register = function (server, options, next) {
       method: 'GET',
       path: '/api/profile/{username}',
       handler: function (request, reply) {
-        console.log(request);
         Authenticated(request, function (result) {
           if (result.authenticated){
             var db = request.server.plugins['hapi-mongodb'].db;
