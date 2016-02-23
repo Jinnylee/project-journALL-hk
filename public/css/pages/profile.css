@@ -2,6 +2,7 @@
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
+  height: 120px;
 }
 
 #profile-page {
@@ -26,7 +27,7 @@
 }
 
 #entryInput {
-  height: 300px;
+  max-height: 50px;
 }
 
 #userInformation{
