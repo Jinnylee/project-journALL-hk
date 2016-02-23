@@ -3,8 +3,10 @@ body {
 }
 
 .searchTags {
-  padding-right: 500px;
+  padding: 5px;
+  width: 800px;
 }
+
 .form-control {
   width: 400px;
   background-color: none;

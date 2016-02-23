@@ -7,7 +7,6 @@ exports.register = function (server, options, next) {
       method: 'PUT',
       path: '/api/journals/favorite/{id}',
       handler: function (request, reply) {
-        console.log(request);
         Authenticated(request, function (result) {
           if (result.authenticated) {
             var db = request.server.plugins['hapi-mongodb'].db;
@@ -19,30 +18,31 @@ exports.register = function (server, options, next) {
               if (err) { return reply(err).code(400); }
 
               if (user === null) {
-                var favoritesList = user.favoritesList || []
+                var favoritesList = result.currentUser.favoritesList || []
                 favoritesList.push(journal_id);
 
                 db.collection('users').update({"_id": user_id}, {$set: {"favoritesList": favoritesList} }, function (err, user) {
                   if (err) { return reply(err).code(400); }
 
-                  db.collection('journals').update( {"_id": journal_id}, { $inc: { "favorite": 1 }}, function (err, journal) {
+                  db.collection('journals').findOneAndUpdate({"_id": journal_id}, { $inc: { "favorite": 1 }}, function (err, journal) {
                     if (err) { return reply(err).code(400); }
 
-                    reply(journal).code(200);
+                    var journal_user_id = journal.value.user_id;
+
+                    db.collection('users').update( {"_id": journal_user_id}, { $inc: { "favorite": 1 }}, function (err, user) {
+                      if (err) { return reply(err).code(400); }
+
+                      // because update doesn't give you the updated one.
+                      // it only gives you the document before it was updated
+                      journal.value.favorite++;
+                      reply(journal.value).code(200);
+                    });
                   });
-
-                  db.collection('users').update( {"_id": journal_id}, { $inc: { "favorite": 1 }}, function (err, user) {
-                    if (err) { return reply(err).code(400); }
-
-                    reply(user).code(200);
-                  });
-
                 });
               } else {
-                reply({message: "You already liked this journal!"});
+                reply({message: "You already liked this journal!"}).code(400);
               }
             })
-
           } else {
             reply(result).code(400);
           }

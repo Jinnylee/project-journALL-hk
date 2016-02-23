@@ -173,7 +173,6 @@ exports.register = function (server, options, next) {
 
             db.collection('journals').find({tags: { $all: arraysearch}}).sort({date: -1}).limit(12).toArray(function (err, doc) {
               if (err) { return reply ('Internal MongoDB error', err).code(400);}
-              console.log(doc);
               reply(doc).code(200);
             });
 

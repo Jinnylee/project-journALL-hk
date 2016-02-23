@@ -2,13 +2,16 @@ $(document).ready(function () {
 
   var appendPopularJournals = function (title, username, date, favorite, id) {
     var divs =
-    '<div class="entries col-xs-4">' +
+    '<div class="entries col-xs-4" data-id="' + id + '">' +
       '<div id="title">' + title + '</div>' +
       '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
       '<div id="date">' + date + '</div>'+
-      '<div id="favorite"><i class="fa fa-heart-o"></i>' + ' ' + favorite + '</div>' +
+      '<div id="favorite">' +
+        '<i class="fa fa-heart-o"></i> ' +
+        '<span>' + favorite + '</span>' +
+      '</div>' +
       '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
-    '</div><br>';
+    '</div>';
 
     $('.mainarea').append(divs);
   };
@@ -25,7 +28,7 @@ $(document).ready(function () {
       '<div id="singleusername">' + username + '</div>' +
       '<div id="singledate">' + date + '</div>' +
       '<div id="singlejournal">' + journal + '</div>' +
-      '<div id="singlefavorite">' + favorite + '</div>' +
+      '<div id="singlefavorite"><i class="fa fa-heart-o"></i> ' +  '<span>' + favorite + '<span>' + '</div>' +
     '</div>'
 
     $('#like').data('id', id);
@@ -84,17 +87,18 @@ $(document).ready(function () {
   var favoritePost = function () {
     $('#like').off().on('click', function (e) {
       e.preventDefault();
-      console.log("Sent request!")
 
       var id = $(this).data("id");
-      console.log(id);
 
       $.ajax({
         method: "PUT",
         url: "/api/journals/favorite/" + id,
         success: function (response, status) {
           console.log("added favorite!", response);
+          $('#singlefavorite span').empty();
+          $('#singlefavorite span').text(response.favorite);
 
+          $('div.entries[data-id="' + response._id +'"]').find('#favorite span').empty().text(response.favorite);
         },
         error: function (response, status) {
           console.log("can't add favorite! ", response);
