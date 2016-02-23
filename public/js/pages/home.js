@@ -198,7 +198,7 @@ $(document).ready(function () {
   var topuserlist = function (username, favorite) {
     var list =
     '<div class="users col-md-12">' +
-      '<div class="topusername"><i class="fa fa-heart"></i> ' + favorite + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + username +'</div>'
+      '<div class="topusername"><i class="fa fa-heart"></i> ' + favorite + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + username + '</div>' +
     '</div>'
 
     $('.popularUser').append(list);
@@ -226,6 +226,17 @@ $(document).ready(function () {
     $('.users').on('click', function (e) {
       e.preventDefault();
 
+      $.ajax({
+        method: "GET",
+        url: "/api/topuser/{username}",
+        success: function (response, status) {
+          console.log(response);
+          window.location.href = "/profile/" + response.username
+        },
+        error: function (response, status) {
+          console.log(response);
+        }
+      })
     })
   };
 

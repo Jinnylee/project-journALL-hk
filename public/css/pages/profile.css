@@ -9,6 +9,7 @@
   background-color: white;
   opacity: 0.8;
   margin-top: 40px;
+  padding-bottom: 30px;
 }
 
 .createB {
@@ -37,4 +38,8 @@
 
 #userPostsFavorites {
   text-align: center;
+}
+
+.lastrow{
+  padding-bottom: 10px;
 }

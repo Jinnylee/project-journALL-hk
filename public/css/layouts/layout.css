@@ -1,6 +1,8 @@
 body {
   font-family: 'Quicksand', cursive, Times, serif;
-  background-image: url(../images/stardust.png);
+  background-image: url(../images/typewriter.jpg);
+  background-repeat: no-repeat;
+  object-fit: cover;
   font-size: 15px;
 }
 
@@ -23,6 +25,12 @@ body {
 
 a {
   font-size: 15px;
+}
+
+.sign {
+  margin-top: 8px;
+  font-size: 15px;
+  margin-left: 5px;
 }
 
 #signout-btn {
