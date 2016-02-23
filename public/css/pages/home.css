@@ -1,7 +1,45 @@
-.entries {
+.popularUser {
+  float: right;
+  background-color: white;
+  opacity: 0.8;
+  margin-top: 40px;
+  margin-right: 40px;
+  margin-bottom:10px;
+  text-align: center;
+  text-decoration-style: bold;
+}
+
+/*.popularUser {
   background-color: yellow;
+  float: right;
+  height: 280px;
+  position: inline-block;
   border: 15px solid white;
   border-radius: 20px;
+  padding: 10px;
+}*/
+
+.mainarea {
+  background-color: white;
+  opacity: 0.8;
+  margin-top: 40px;
+}
+
+.recentArea {
+  margin-bottom: 20px;
+}
+
+#favorite {
+  margin-top: 37px;
+  margin-left: 20px;
+}
+
+.text {
+  text-align: left;
+}
+
+.entries {
+  border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
 }
@@ -11,25 +49,17 @@ h2 {
   margin-bottom: 20px;
 }
 
-h3 {
-
-}
-
 .popularposts {
   border: 0;
   margin: 0;
 }
 
-.popularUser {
-  background-color: yellow;
-  float: right;
-  height: 280px;
-  position: inline-block;
-  border: 15px solid white;
-  border-radius: 20px;
-  padding: 10px;
-}
-
 h2 {
   text-align: center;
+}
+
+.users {
+  text-align: left;
+  margin-top:5px;
+  margin-bottom: 5px;
 }

@@ -99,15 +99,20 @@ $(document).ready(function () {
   }
 
   // append journals to page
-  var appendOwnJournals = function (title, username, date, journal, favorite, id) {
+  var appendOwnJournals = function (favorite, title, username, date, journal, id) {
     var divs =
-    '<span><div class="entries col-xs-4">' +
-      '<div id="title">' + title + '</div>' +
-      '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
-      '<div id="date">' + date + '</div>'+
-      '<div id="favorite"><i class="fa fa-heart"></i> ' + '<span>' + favorite + '</span></div>' +
-      '<button class="btn btn-default userpost" data-id="' + id + '">' + 'Read' + '</a>' +
-    '</div><span>';
+    '<div class="entries col-xs-12 col-md-6" data-id="' + id + '">' +
+    '<div class="col-xs-2"id="favorite">' +
+      '<i class="fa fa-heart"></i> ' +
+      '<span>' + favorite + '</span>' +
+    '</div>' +
+    '<div class="text col-xs-9">' +
+        '<div id="title">' + title + '</div>' +
+        '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
+        '<div id="date">' + date + '</div>'+
+        '<button class="btn btn-default userpost" data-id="' + id + '">' + 'Read' + '</a>' +
+      '</div>'+
+    '</div>';
 
     $('#userPostsFavorites').append(divs);
   }
@@ -120,7 +125,7 @@ $(document).ready(function () {
       method: "GET",
       success: function (response, status) {
         response.forEach(function(elem, index) {
-          appendOwnJournals(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
+          appendOwnJournals(elem.favorite, elem.title, elem.username, elem.date, elem.journal, elem._id);
           console.log(elem);
           showOwnOneEntry();
         })

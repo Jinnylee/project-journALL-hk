@@ -1,14 +1,21 @@
 <div id="home-page">
-  <h2 id="page-title">JournALL</h2>
 
-    <div class="mainarea" class="col-xs-12">
-    <div class="error"></div>
-    <div class="popularArea col-xs-8"></div>
-    <h3>Most Popular</h3>
-    <div class="popularUser col-xs-4"></div>
+<!-- -->
+<div class="error"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="mainarea col-xs-7 col-md-offset-2">
+      <div class="popularArea col-xs-12">
+        <h3 class="col-xs-12">Most Popular</h3>
+      </div>
 
-    <div class="recentArea col-xs-12"><h3>Most Recent</h3></div>
+      <div class="recentArea col-xs-12">
+        <h3 class="col-xs-12">Most Recent</h3>
+      </div>
     </div>
+    <div class="popularUser col-md-2">Top Users</div>
+  </div>
+</div>
 
     <div class="modal fade" id="viewPost" tabindex="-1" role="dialog">
       <div class="modal-dialog">
@@ -22,7 +29,7 @@
           </div>
           <div class="modal-footer">
             <div id="favorite-form-message"></div>
-            <button type="button" class="btn btn-primary" id="like"><i class="fa fa-heart"></i> Favorite</button>
+            <button type="button" class="btn btn-default" id="like"><i class="fa fa-heart"></i> Favorite</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div><!-- /.modal-content -->

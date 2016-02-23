@@ -1,51 +1,57 @@
 $(document).ready(function () {
 
-  var appendSearchJournals = function (title, username, date, favorite, id) {
+  var appendSearchJournals = function (favorite, title, username, date, id) {
     var divs =
-    '<div class="entries col-xs-4" data-id="' + id + '">' +
-      '<div id="title">' + title + '</div>' +
-      '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
-      '<div id="date">' + date + '</div>'+
-      '<div id="favorite">' +
-        '<i class="fa fa-heart"></i> ' +
-        '<span>' + favorite + '</span>' +
-      '</div>' +
-      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
+    '<div class="entries col-xs-12 col-md-6" data-id="' + id + '">' +
+    '<div class="col-xs-2"id="favorite">' +
+      '<i class="fa fa-heart"></i> ' +
+      '<span>' + favorite + '</span>' +
+    '</div>' +
+    '<div class="text col-xs-9">' +
+        '<div id="title">' + title + '</div>' +
+        '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
+        '<div id="date">' + date + '</div>'+
+        '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
+      '</div>'+
     '</div>';
 
     $('.mainarea').append(divs);
   };
 
 //actually recent journals
-  var appendPopularJournals = function (title, username, date, favorite, id) {
+  var appendPopularJournals = function (favorite, title, username, date, id) {
     var divs =
-    '<div class="entries col-xs-4" data-id="' + id + '">' +
-      '<div id="title">' + title + '</div>' +
-      '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
-      '<div id="date">' + date + '</div>'+
-      '<div id="favorite">' +
-        '<i class="fa fa-heart"></i> ' +
-        '<span>' + favorite + '</span>' +
-      '</div>' +
-      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
+    '<div class="entries col-xs-12 col-md-6" data-id="' + id + '">' +
+    '<div class="col-xs-2"id="favorite">' +
+      '<i class="fa fa-heart"></i> ' +
+      '<span>' + favorite + '</span>' +
+    '</div>' +
+    '<div class="text col-xs-9">' +
+        '<div id="title">' + title + '</div>' +
+        '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
+        '<div id="date">' + date + '</div>'+
+        '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
+      '</div>'+
     '</div>';
 
     $('.recentArea').append(divs);
   };
 
 //actually popular journals
-  var appendRecentJournals = function (title, username, date, favorite, id) {
+  var appendRecentJournals = function (favorite, title, username, date, id) {
     var divs =
-    '<div class="entries col-xs-6" data-id="' + id + '">' +
-      '<div id="title">' + title + '</div>' +
-      '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
-      '<div id="date">' + date + '</div>'+
-      '<div id="favorite">' +
-        '<i class="fa fa-heart"></i> ' +
-        '<span>' + favorite + '</span>' +
-      '</div>' +
-      '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
-    '</div>'
+    '<div class="entries col-xs-12 col-md-6" data-id="' + id + '">' +
+    '<div class="col-xs-2"id="favorite">' +
+      '<i class="fa fa-heart"></i> ' +
+      '<span>' + favorite + '</span>' +
+    '</div>' +
+    '<div class="text col-xs-9">' +
+        '<div id="title">' + title + '</div>' +
+        '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
+        '<div id="date">' + date + '</div>'+
+        '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
+      '</div>'+
+    '</div>';
 
     $('.popularArea').append(divs);
   };
@@ -57,7 +63,7 @@ $(document).ready(function () {
       method: "GET",
       success: function (response,status) {
         response.forEach(function(elem, index) {
-          appendRecentJournals(elem.title, elem.username, elem.date, elem.favorite, elem._id);
+          appendRecentJournals(elem.favorite, elem.title, elem.username, elem.date, elem._id);
         })
         showOnePost();
       },
@@ -97,7 +103,7 @@ $(document).ready(function () {
       method: "GET",
       success: function (response, status) {
         response.forEach(function(elem, index){
-          appendPopularJournals(elem.title, elem.username, elem.date, elem.favorite, elem._id);
+          appendPopularJournals(elem.favorite, elem.title, elem.username, elem.date, elem._id);
         })
         showOnePost();
       },
@@ -126,7 +132,7 @@ $(document).ready(function () {
       success: function (response) {
         $('.mainarea').empty();
         response.forEach(function(elem, index) {
-          appendSearchJournals(elem.title, elem.username, elem.date, elem.favorite, elem._id);
+          appendSearchJournals(elem.favorite, elem.title, elem.username, elem.date, elem._id);
         })
         showOnePost();
       },
@@ -189,12 +195,10 @@ $(document).ready(function () {
     })
   };
 
-  var topuserlist = function (username, favorite, entries) {
+  var topuserlist = function (username, favorite) {
     var list =
-    '<div class="users">' +
-      '<div class="topusername">' + username + '</div>' +
-      '<div class="topfavorite"><i class="fa fa-heart"></i> ' + favorite + '</div>' +
-      '<div class="topentries">' + entries + '</div>' +
+    '<div class="users col-md-12">' +
+      '<div class="topusername"><i class="fa fa-heart"></i> ' + favorite + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + username +'</div>'
     '</div>'
 
     $('.popularUser').append(list);
@@ -209,7 +213,7 @@ $(document).ready(function () {
       success: function (response, status) {
         console.log(response);
         response.forEach(function(elem, index) {
-          topuserlist(elem.username, elem.favorite, elem.entries);
+          topuserlist(elem.username, elem.favorite);
         })
       },
       error: function (response, status) {

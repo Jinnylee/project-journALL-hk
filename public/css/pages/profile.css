@@ -1,10 +1,29 @@
 .entries {
-  background-color: yellow;
-  border-radius: 10px;
-
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
 }
 
+#profile-page {
+  background-color: white;
+  opacity: 0.8;
+  margin-top: 40px;
+}
 
+.createB {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#favorite {
+  margin-top: 37px;
+  margin-left: 20px;
+}
+
+.text {
+  text-align: left;
+}
 
 #entryInput {
   height: 300px;
@@ -12,7 +31,7 @@
 
 #userInformation{
   text-align: center;
-
+  font: white;
 }
 
 #userPostsFavorites {

@@ -1,21 +1,34 @@
 <script src="/public/js/pages/profile.js"></script>
 <link rel="stylesheet" href="/public/css/pages/profile.css">
 
-<div class="mainarea">
-<div id="profile-page">
-  <div id="userInformation">
-    <h1><%= user.username %></h1>
-    <h4>Likes: <%= user.favorite %></h4>
-    <h4> Journal entries: <%= user.entries %></h4>
-  </div>
-  <div id="ownEntry">
-    <button class ="btn btn-default" data-toggle="modal" data-target="#create-modal">Create Journal</button>
-  </div>
-</div>
+  <div class="mainarea">
+    <div class="container-fluid">
+      <div id="profile-page" class="col-md-8 col-sm-12 col-md-offset-2">
 
-<!--button to show posts and favorite-->
+      <div class="row">
+        <div id="userInformation" class="col-xs-12">
+          <h1><%= user.username %></h1>
+          <h4>Likes: <%= user.favorite %></h4>
+          <h4> Journal entries: <%= user.entries %></h4>
+        </div>
+      </div>
 
-<div id="userPostsFavorites">
+      <div class="row">
+        <div class="createB col-xs-12">
+          <button class ="btn btn-default" data-toggle="modal" data-target="#create-modal">Create Journal</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div id="ownEntry" class="col-xs-12"></div>
+      </div>
+
+      <div class="row">
+        <div id="userPostsFavorites" class="col-xs-12"></div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 
@@ -37,7 +50,7 @@
         <div class="foot">
           <button type="button" class="btn btn-default editPost"><i class="fa fa-pencil-square-o"></i> Edit</button>
           <button type="button" class="btn btn-default deletePost">Delete</button>
-          <button type="button" class="btn btn-primary like"><i class="fa fa-heart"></i> Favorite</button>
+          <button type="button" class="btn btn-default like"><i class="fa fa-heart"></i> Favorite</button>
         </div>
         <button type="button" class="btn btn-default closeOne" data-dismiss="modal">Close</button>
       </div>
