@@ -1,12 +1,11 @@
 $(document).ready(function () {
 
-  var appendPopularJournals = function (title, username, date, journal, favorite, id) {
+  var appendPopularJournals = function (title, username, date, favorite, id) {
     var divs =
     '<div class="entries col-xs-4">' +
       '<div id="title">' + title + '</div>' +
       '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
       '<div id="date">' + date + '</div>'+
-      '<div id="journal">' + journal + '</div>' +
       '<div id="favorite"><i class="fa fa-heart-o"></i>' + ' ' + favorite + '</div>' +
       '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
     '</div><br>';
@@ -23,10 +22,10 @@ $(document).ready(function () {
 
     var body =
     '<div id="singlebody">' +
-      '<div id="singleusername">' + username +
-      '<div id="singledate">' + date +
-      '<div id="singlejournal>' + journal +
-      '<div id="singlefavorite>' + favorite +
+      '<div id="singleusername">' + username + '</div>' +
+      '<div id="singledate">' + date + '</div>' +
+      '<div id="singlejournal">' + journal + '</div>' +
+      '<div id="singlefavorite">' + favorite + '</div>' +
     '</div>' +
     '<button type="button" class="btn btn-primary" id="like" data-id="' + id + '"><i class="fa fa-heart"></i> Favorite</button>';
 
@@ -48,7 +47,7 @@ $(document).ready(function () {
       success: function (response, status) {
         console.log(response);
         response.forEach(function(elem, index){
-          appendPopularJournals(elem.title, elem.username, elem.date, elem.journal, elem.favorite, elem._id);
+          appendPopularJournals(elem.title, elem.username, elem.date, elem.favorite, elem._id);
         })
         showOnePost();
       },
@@ -70,6 +69,7 @@ $(document).ready(function () {
         method: "GET",
         url: '/api/journals/' + id,
         success: function (response) {
+          console.log(response.journal);
           appendSinglePost(response.title, response.username, response.date, response.journal, response.favorite, response._id);
           $('#viewPost').modal('show');
         },
