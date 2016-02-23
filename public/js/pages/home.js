@@ -7,7 +7,7 @@ $(document).ready(function () {
       '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
       '<div id="date">' + date + '</div>'+
       '<div id="favorite">' +
-        '<i class="fa fa-heart-o"></i> ' +
+        '<i class="fa fa-heart"></i> ' +
         '<span>' + favorite + '</span>' +
       '</div>' +
       '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
@@ -24,7 +24,7 @@ $(document).ready(function () {
       '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
       '<div id="date">' + date + '</div>'+
       '<div id="favorite">' +
-        '<i class="fa fa-heart-o"></i> ' +
+        '<i class="fa fa-heart"></i> ' +
         '<span>' + favorite + '</span>' +
       '</div>' +
       '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
@@ -41,7 +41,7 @@ $(document).ready(function () {
       '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
       '<div id="date">' + date + '</div>'+
       '<div id="favorite">' +
-        '<i class="fa fa-heart-o"></i> ' +
+        '<i class="fa fa-heart"></i> ' +
         '<span>' + favorite + '</span>' +
       '</div>' +
       '<button class="btn btn-default view-btn" data-id="' + id + '">' + 'Read' + '</a>' +
@@ -68,7 +68,7 @@ $(document).ready(function () {
   }
 
   // populating modal
-  var appendSinglePost = function (title, username, date, journal, favorite, id) {
+  var appendSinglePost = function (title, username, date, tags, journal, favorite, id) {
     var title =
     '<div id="singletitle">' +
       title +
@@ -78,8 +78,9 @@ $(document).ready(function () {
     '<div id="singlebody">' +
       '<div id="singleusername">' + username + '</div>' +
       '<div id="singledate">' + date + '</div>' +
-      '<div id="singlejournal">' + journal + '</div>' +
-      '<div id="singlefavorite"><i class="fa fa-heart-o"></i> ' +  '<span>' + favorite + '<span>' + '</div>' +
+      '<div id="singledate">' + tags + '</div>' +
+      '<div id="singlejournal">Tags: ' + journal + '</div>' +
+      '<div id="singlefavorite"><i class="fa fa-heart"></i> ' +  '<span>' + favorite + '<span>' + '</div>' +
     '</div>'
 
     $('#like').data('id', id);
@@ -150,7 +151,7 @@ $(document).ready(function () {
         url: '/api/journals/' + id,
         success: function (response) {
           console.log(response.journal);
-          appendSinglePost(response.title, response.username, response.date, response.journal, response.favorite, response._id);
+          appendSinglePost(response.title, response.username, response.date, response.tags, response.journal, response.favorite, response._id);
           $('#viewPost').modal('show');
         },
         error: function (response) {
@@ -185,7 +186,44 @@ $(document).ready(function () {
     })
   };
 
+  var topuserlist = function (username, favorite, entries) {
+    var list =
+    '<div class="users">' +
+      '<div class="topusername">' + username + '</div>' +
+      '<div class="topfavorite"><i class="fa fa-heart"></i> ' + favorite + '</div>' +
+      '<div class="topentries">' + entries + '</div>' +
+    '</div>'
+
+    $('.popularUser').append(list);
+  }
+
+
+  var topUser = function () {
+
+    $.ajax({
+      method: "GET",
+      url: "/api/topuser",
+      success: function (response, status) {
+        console.log(response);
+        response.forEach(function(elem, index) {
+          topuserlist(elem.username, elem.favorite, elem.entries);
+        })
+      },
+      error: function (response, status) {
+        console.log(response);
+      }
+    })
+  };
+
+  var gotoUser = function () {
+    $('.users').on('click', function (e) {
+      e.preventDefault();
+
+    })
+  };
+
   var init = function () {
+    topUser();
     var search = window.location.search;
     if (search) {
       $("#page-title").text("Matching Journals");
@@ -194,6 +232,7 @@ $(document).ready(function () {
       $("#page-title").text("JournALL");
       showPopular();
       showRecent();
+      //gotoUser();
     }
     favoritePost();
   };

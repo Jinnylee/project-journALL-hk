@@ -105,7 +105,7 @@ $(document).ready(function () {
       '<div id="title">' + title + '</div>' +
       '<div id="username"><a href="/profile/'+ username + '">' + username + '</a></div>' +
       '<div id="date">' + date + '</div>'+
-      '<div id="favorite"><i class="fa fa-heart-o"></i> ' + '<span>' + favorite + '</span></div>' +
+      '<div id="favorite"><i class="fa fa-heart"></i> ' + '<span>' + favorite + '</span></div>' +
       '<button class="btn btn-default userpost" data-id="' + id + '">' + 'Read' + '</a>' +
     '</div><span>';
 
@@ -144,7 +144,7 @@ $(document).ready(function () {
       '<div id="singledate">' + date +
       '<div id="singletags"> Tags: ' + tags +
       '<div id="singlejournal">' + journal +
-      '<div id="singlefavorite"><i class="fa fa-heart-o"></i> ' + '<span>' + favorite +
+      '<div id="singlefavorite"><i class="fa fa-heart"></i> ' + '<span>' + favorite +
     '</span></div>'
 
     $('.deletePost').data('id', id);
@@ -176,7 +176,7 @@ $(document).ready(function () {
           console.log(response);
           $('#viewOwnPost').modal('show');
           appendSinglePostOwn(response.title, response.username, response.date, response.tags, response.journal, response.favorite, response._id);
-          favoritePost();
+
         },
         error: function (response) {
           console.log(response);
@@ -240,30 +240,30 @@ $(document).ready(function () {
   //   });
   // };
 
-  // // liking post
-  // var favoritePost = function () {
-  //   $('.like').off().on('click', function (e) {
-  //     e.preventDefault();
+  // liking post
+  var favoritePost = function () {
+    $('.like').off().on('click', function (e) {
+      e.preventDefault();
 
-  //     var id = $(this).data("id");
+      var id = $(this).data("id");
 
-  //     $.ajax({
-  //       method: "PUT",
-  //       url: "/api/journals/favorite/" + id,
-  //       success: function (response, status) {
-  //         console.log("added favorite!", response);
-  //         $('#singlefavorite span').empty();
-  //         $('#singlefavorite span').text(response.favorite);
+      $.ajax({
+        method: "PUT",
+        url: "/api/journals/favorite/" + id,
+        success: function (response, status) {
+          console.log("added favorite!", response);
+          $('#singlefavorite span').empty();
+          $('#singlefavorite span').text(response.favorite);
 
-  //         $('div.entries[data-id="' + response._id +'"]').find('#favorite span').empty().text(response.favorite);
-  //       },
-  //       error: function (response, status) {
-  //         console.log("can't add favorite! ", response);
-  //       }
-  //     });
+          $('div.entries[data-id="' + response._id +'"]').find('#favorite span').empty().text(response.favorite);
+        },
+        error: function (response, status) {
+          console.log("can't add favorite! ", response);
+        }
+      });
 
-  //   })
-  // };
+    })
+  };
 
   var init = function () {
     bindCreateJournal();
@@ -271,6 +271,7 @@ $(document).ready(function () {
     bindEditJournal();
     bindDeleteJournal();
     showOwnEntries();
+    favoritePost();
     // showFavoritePosts();
     // showJournalonButton();
     //bindTwoButtons();
