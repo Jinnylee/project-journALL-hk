@@ -19,6 +19,13 @@
   padding: 10px;
 }*/
 
+.error{
+  font: 30px black;
+  font-family: 'Quicksand', serif;
+  font-weight: bold;
+  text-align: center;
+}
+
 .userEnter {
   padding: 2px;
 }
