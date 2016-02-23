@@ -114,7 +114,7 @@ $(document).ready(function () {
   };
 
   // append content to modal
-  var appendSinglePostOwn = function (title, username, date, journal, favorite, id) {
+  var appendSinglePostOwn = function (title, username, date, tags, journal, favorite, id) {
     var header =
     '<div id="singletitle">' +
       title +
@@ -124,6 +124,7 @@ $(document).ready(function () {
     '<div id="singlebody">' +
       '<div id="singleusername">' + username +
       '<div id="singledate">' + date +
+      '<div id="singletags"> Tags:' + tags +
       '<div id="singlejournal>' + journal +
       '<div id="singlefavorite>' + favorite +
     '</div>' +
@@ -131,7 +132,7 @@ $(document).ready(function () {
 
     $('#editJournal').data('id', id);
     $('#edit-title').val(title);
-    // $('#edit-tags').val(title);
+    $('#edit-tags').val(title);
     $('#edit-journal').val(journal);
 
     $('.body').empty();
@@ -155,7 +156,7 @@ $(document).ready(function () {
         success: function (response) {
           console.log(response);
           $('#viewOwnPost').modal('show');
-          appendSinglePostOwn(response.title, response.username, response.date, response.journal, response.favorite, response._id);
+          appendSinglePostOwn(response.title, response.username, response.date, response.tags, response.journal, response.favorite, response._id);
         },
         error: function (response) {
           console.log(response);

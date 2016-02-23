@@ -81,55 +81,57 @@ exports.register = function (server, options, next) {
         });
       }
     },
-    //edit a post
-    // {
-    //   method: 'PUT',
-    //   path: '/api/journals/{id}',
-    //   handler: function(request, reply) {
-    //     console.log(request);
-    //     Authenticated(request, function (result) {
-    //       if (result.authenticated) {
-    //         var db       = request.server.plugins['hapi-mongodb'].db;
-    //         var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
-    //         var session  = request.yar.get('journal_session');
+    // edit a post
+    {
+      method: 'PUT',
+      path: '/api/journals/{id}',
+      handler: function(request, reply) {
+        console.log(request);
+        Authenticated(request, function (result) {
+          if (result.authenticated) {
+            var db       = request.server.plugins['hapi-mongodb'].db;
+            var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+            var session  = request.yar.get('journal_session');
 
-    //         var id = ObjectID(request.params.id);
-    //         var user_id = ObjectID(session.user_id);
+            var id = ObjectID(request.params.id);
+            var user_id = ObjectID(session.user_id);
 
-    //         var editedJournal = request.payload.editedJournal;
-    //         var tags = editedJournal.tags
+            var editedJournal = request.payload;
+            console.log(editedJournal);
+            var tags = editedJournal.tags
+            console.log(tags);
 
-    //         var array = tags.split(',').map(function(word) { return word.trim(); });
-    //         var updateJournal = {
-    //           "title": editeJournal.title,
-    //           "tags": array,
-    //           "journal": editedJournal.journal
-    //         }
+            var array = tags.split(',').map(function(word) { return word.trim(); });
+            var updateJournal = {
+              "title": editedJournal.title,
+              "tags": array,
+              "journal": editedJournal.journal
+            }
 
-    //         console.log(updateJournal);
+            console.log(updateJournal);
 
-    //         db.collection('journals').findOne({"_id":id}, function (err, journal) {
-    //           if (err) { return reply(err).code(400); }
+            db.collection('journals').findOne({"_id":id}, function (err, journal) {
+              if (err) { return reply(err).code(400); }
 
-    //           if (journal === null) {
-    //             return reply ({message: "There is no doughnut"}).code(404);
-    //           }
+              if (journal === null) {
+                return reply ({message: "There is no journal."}).code(404);
+              }
 
-    //           if (journal.user_id.toString() === user_id.toString()) {
-    //             db.collection('journals').update({"_id": id}, {$set: updateJournal}, function (err, journal){
-    //               if (err) { return reply(err).code(400); }
-    //               reply(journal).code(200);
-    //             });
-    //           } else {
-    //             reply({message: "This is not your journal"}).code(400);
-    //           }
-    //         });
-    //       } else {
-    //         reply (result).code(400);
-    //       }
-    //     });
-    //   }
-    // },
+              if (journal.user_id.toString() === user_id.toString()) {
+                db.collection('journals').update({"_id": id}, {$set: updateJournal}, function (err, journal){
+                  if (err) { return reply(err).code(400); }
+                  reply(journal).code(200);
+                });
+              } else {
+                reply({message: "This is not your journal"}).code(400);
+              }
+            });
+          } else {
+            reply (result).code(400);
+          }
+        });
+      }
+    },
     // show all the searches
     {
       method: 'GET',
