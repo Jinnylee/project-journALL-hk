@@ -15,7 +15,7 @@ var plugins = [
   { register: require('./routes/pages.js') },
   { register: require('./routes/api/auth.js') },
   { register: require('./routes/api/journals.js') },
-  //{ register: require('./routes/api/favorite.js') },
+  { register: require('./routes/api/favorite.js') },
   { register: require('hapi-mongodb'), // setup the mongo connect
    options: {
       "url": process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/journall",

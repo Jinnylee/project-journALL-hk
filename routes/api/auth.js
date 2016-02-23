@@ -40,7 +40,8 @@ exports.register = function(server, options, next) {
                   "username" : user.username,
                   "password" : user.password,
                   "entries" : 0,
-                  "favorite" : 0
+                  "favorite" : 0,
+                  "favoritesList": []
                 }
 
                 // Store hash in your password DB.

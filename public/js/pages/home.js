@@ -26,9 +26,9 @@ $(document).ready(function () {
       '<div id="singledate">' + date + '</div>' +
       '<div id="singlejournal">' + journal + '</div>' +
       '<div id="singlefavorite">' + favorite + '</div>' +
-    '</div>' +
-    '<button type="button" class="btn btn-primary" id="like" data-id="' + id + '"><i class="fa fa-heart"></i> Favorite</button>';
+    '</div>'
 
+    $('#like').data('id', id);
     $('.oneBody').empty();
     $('.oneTitle').empty();
     $('.oneBody').append(body);
@@ -84,18 +84,20 @@ $(document).ready(function () {
   var favoritePost = function () {
     $('#like').off().on('click', function (e) {
       e.preventDefault();
+      console.log("Sent request!")
 
       var id = $(this).data("id");
+      console.log(id);
 
       $.ajax({
         method: "PUT",
-        url: "/api/journals/" + id,
+        url: "/api/journals/favorite/" + id,
         success: function (response, status) {
           console.log("added favorite!", response);
 
         },
         error: function (response, status) {
-          console.log("can't add favorite!", response);
+          console.log("can't add favorite! ", response);
         }
       });
 
@@ -104,7 +106,7 @@ $(document).ready(function () {
 
   var init = function () {
     showPopular();
-    // favoritePost()
+    favoritePost();
   };
 
   init();

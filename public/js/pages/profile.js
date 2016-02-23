@@ -145,10 +145,10 @@ $(document).ready(function () {
       '<div id="singletags"> Tags:' + tags +
       '<div id="singlejournal">' + journal +
       '<div id="singlefavorite">' + favorite +
-    '</div>' +
-    '<button type="button" class="btn btn-primary" id="like" data-id="' + id + '"><i class="fa fa-heart"></i> Favorite</button>'
+    '</div>'
 
     $('.deletePost').data('id', id);
+    $('#like').data('id', id);
     $('#editJournal').data('id', id);
     $('#edit-title').val(title);
     $('#edit-tags').val(title);
