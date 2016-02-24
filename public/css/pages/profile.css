@@ -34,14 +34,13 @@
 #userInformation{
   text-align: center;
   font: white;
+  padding-top: 30px;
+  padding-bottom: 20px;
 }
 
 #userPostsFavorites {
   text-align: center;
-}
-
-.lastrow{
-  padding-bottom: 10px;
+  padding-bottom: 30px;
 }
 
 #edit-journal {

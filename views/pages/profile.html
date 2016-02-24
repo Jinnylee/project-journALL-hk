@@ -13,11 +13,13 @@
         </div>
       </div>
 
-      <div class="row">
-        <div class="createB col-xs-12">
-          <button class ="btn btn-default" data-toggle="modal" data-target="#create-modal">Create Journal</button>
+      <% if (currentUserId && profileUserId && currentUserId === profileUserId) { %>
+        <div class="row">
+          <div class="createB col-xs-12">
+            <button class ="btn btn-default" data-toggle="modal" data-target="#create-modal">Create Journal</button>
+          </div>
         </div>
-      </div>
+      <% } %>
 
       <div class="row lastrow">
         <div id="ownEntry" class="col-xs-12"></div>
@@ -49,11 +51,14 @@
       <div class="modal-footer">
         <div id="delete-form-message"></div>
         <div class="foot">
-          <button type="button" class="btn btn-default editPost"><i class="fa fa-pencil-square-o"></i> Edit</button>
-          <button type="button" class="btn btn-default deletePost"><i class="fa fa-trash-o"></i> Delete</button>
+          <% if (currentUserId && profileUserId && currentUserId === profileUserId) { %>
+            <button type="button" class="btn btn-default editPost"><i class="fa fa-pencil-square-o"></i> Edit</button>
+            <button type="button" class="btn btn-default deletePost"><i class="fa fa-trash-o"></i> Delete</button>
+          <% } %>
+          <div id="favorite-form-message"></div>
           <button type="button" class="btn btn-default like"><i class="fa fa-heart"></i> Favorite</button>
+          <button type="button" class="btn btn-default closeOne" data-dismiss="modal">Close</button>
         </div>
-        <button type="button" class="btn btn-default closeOne" data-dismiss="modal">Close</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

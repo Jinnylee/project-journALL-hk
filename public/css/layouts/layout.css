@@ -6,6 +6,10 @@ body {
   font-size: 15px;
 }
 
+.navbar {
+  border-radius: 2px;
+}
+
 .navbar-brand {
   font-size: 40px;
 }
@@ -13,10 +17,12 @@ body {
 .searchTags {
   padding: 5px;
   font-size: 15px;
+  border-radius: 2px;
 }
 
 .searchSubmit {
   font-size: 15px;
+  border-radius: 2px;
 }
 
 #userlink {
@@ -36,4 +42,6 @@ a {
 #signout-btn {
   margin-top: 8px;
   font-size: 15px;
+  border-radius: 2px;
 }
+

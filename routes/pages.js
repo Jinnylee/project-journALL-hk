@@ -38,8 +38,12 @@ exports.register = function (server, options, next) {
               //   if (err) { return reply ('Internal MongoDB error', err).code(400);}
 
                 //result['journals'] = journals;
-                result['user'] = user;
-                reply.view('profile', result).code(200);
+
+              result['user'] = user;
+              result['profileUserId'] = user ? user._id.toString() : null ;
+              result['currentUserId'] = result.currentUserId ? result.currentUserId._id.toString() : null ;
+
+              reply.view('profile', result).code(200);
             }
           )
         });

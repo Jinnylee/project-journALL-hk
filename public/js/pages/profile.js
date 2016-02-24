@@ -176,6 +176,7 @@ $(document).ready(function () {
       console.log("Hello I am Jinny!!")
       $('#delete-form-message').text('');
       $('#edit-form-message').text('');
+      $('#favorite-form-message').text('');
 
       var id = $(this).data("id");
       var username = window.location.pathname.split('/')[2]
@@ -268,9 +269,13 @@ $(document).ready(function () {
           $('#singlefavorite span').text(response.favorite);
 
           $('div.entries[data-id="' + response._id +'"]').find('#favorite span').empty().text(response.favorite);
+
+          $('#favorite-form-message').text('Liked!');
+
         },
         error: function (response, status) {
           console.log("can't add favorite! ", response);
+          $('#favorite-form-message').text("Looks like you've already liked this post!");
         }
       });
 
