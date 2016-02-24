@@ -85,7 +85,7 @@ $(document).ready(function () {
       '<p><div id="singleusername">' + '<a href="/profile/' +username + '">' + username + '</a></div></p>' +
       '<p><div id="singledate">' + date + '</p>' +
       '<p><div id="singletags"> Tags: ' + tags + '</p>' +
-      '<p><div id="singlefavorite"><i class="fa fa-heart"></i> ' + '<span>' + favorite +
+      '<p><div id="singlefavorite"><i class="fa fa-heart"></i> ' + '<span>' + favorite + '</span>' +
       '<p><div id="singlejournal">' + journal + '</p>' +
     '</span></div></p>'
 
