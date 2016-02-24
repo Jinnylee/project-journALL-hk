@@ -34,8 +34,8 @@
 #userInformation{
   text-align: center;
   font: white;
-  padding-top: 30px;
-  padding-bottom: 20px;
+  padding-top: 25px;
+  padding-bottom: 10px;
 }
 
 #userPostsFavorites {
@@ -45,4 +45,8 @@
 
 #edit-journal {
   border: 1px solid #ddd;
+}
+
+.deletePost {
+  margin-bottom: 10px;
 }

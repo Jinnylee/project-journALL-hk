@@ -41,7 +41,7 @@ exports.register = function (server, options, next) {
 
               result['user'] = user;
               result['profileUserId'] = user ? user._id.toString() : null ;
-              result['currentUserId'] = result.currentUserId ? result.currentUserId._id.toString() : null ;
+              result['currentUserId'] = result.currentUser ? result.currentUser._id.toString() : null ;
 
               reply.view('profile', result).code(200);
             }
