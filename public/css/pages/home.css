@@ -82,3 +82,7 @@ h2 {
 #topuserpage {
   pointer-events: none
 }
+
+.view-btn {
+  border-radius: 2px;
+}
