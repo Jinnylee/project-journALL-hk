@@ -2,7 +2,6 @@
   border: 1px solid #ddd;
   padding: 10px;
   text-align: center;
-  height: 120px;
 }
 
 #profile-page {
@@ -28,8 +27,9 @@
 }
 
 #entryInput {
-  max-height: 50px;
+  border: 1px solid #ddd;
 }
+
 
 #userInformation{
   text-align: center;
@@ -42,4 +42,8 @@
 
 .lastrow{
   padding-bottom: 10px;
+}
+
+#edit-journal {
+  border: 1px solid #ddd;
 }

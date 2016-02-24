@@ -10,7 +10,7 @@ $(document).ready(function () {
       var journal = {
         title   : $('#createJournal [name="title"]').val(),
         tags    : $('#createJournal [name="tags"]').val(),
-        journal : $('#createJournal [name="journal"]').val()
+        journal : $('#createJournal #entryInput').val()
       };
 
       console.log(journal);
@@ -39,6 +39,7 @@ $(document).ready(function () {
       e.preventDefault();
       $('#edit-modal').modal('show');
       $('#viewOwnPost').modal('hide');
+      $("#edit-form-message").text('');
     })
   };
 
@@ -68,6 +69,7 @@ $(document).ready(function () {
         },
         error: function (response, status) {
           console.log(response);
+          $("#edit-form-message").text("This is not your journal.")
         }
       });
     });
@@ -77,6 +79,7 @@ $(document).ready(function () {
   var bindDeleteJournal = function () {
     $('.deletePost').off().on('click', function (e){
       e.preventDefault();
+      $('#delete-form-message').text('');
 
       console.log("request sent!");
 
@@ -93,6 +96,7 @@ $(document).ready(function () {
         },
         error: function (response, status) {
           console.log(response);
+          $('#delete-form-message').text('This is not your journal.')
         }
       })
     })
@@ -145,12 +149,12 @@ $(document).ready(function () {
 
     var body =
     '<div id="singlebody">' +
-      '<div id="singleusername">' + username +
-      '<div id="singledate">' + date +
-      '<div id="singletags"> Tags: ' + tags +
-      '<div id="singlejournal">' + journal +
-      '<div id="singlefavorite"><i class="fa fa-heart"></i> ' + '<span>' + favorite +
-    '</span></div>'
+      '<p><div id="singleusername">' + '<a href="/profile/' +username + '">' + username + '</a></div></p>' +
+      '<p><div id="singledate">' + date + '</p>' +
+      '<p><div id="singletags"> Tags: ' + tags + '</p>' +
+      '<p><div id="singlefavorite"><i class="fa fa-heart"></i> ' + '<span>' + favorite +
+      '<p><div id="singlejournal">' + journal + '</p>' +
+    '</span></div></p>'
 
     $('.deletePost').data('id', id);
     $('.like').data('id', id);
@@ -170,6 +174,8 @@ $(document).ready(function () {
     $('.userpost').off().on('click', function(e) {
       e.preventDefault();
       console.log("Hello I am Jinny!!")
+      $('#delete-form-message').text('');
+      $('#edit-form-message').text('');
 
       var id = $(this).data("id");
       var username = window.location.pathname.split('/')[2]

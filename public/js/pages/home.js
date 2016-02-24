@@ -82,12 +82,12 @@ $(document).ready(function () {
 
     var body =
     '<div id="singlebody">' +
-      '<div id="singleusername">' + username + '</div>' +
-      '<div id="singledate">' + date + '</div>' +
-      '<div id="singledate">' + tags + '</div>' +
-      '<div id="singlejournal">Tags: ' + journal + '</div>' +
-      '<div id="singlefavorite"><i class="fa fa-heart"></i> ' +  '<span>' + favorite + '<span>' + '</div>' +
-    '</div>'
+      '<p><div id="singleusername">' + '<a href="/profile/' +username + '">' + username + '</a></div></p>' +
+      '<p><div id="singledate">' + date + '</p>' +
+      '<p><div id="singletags"> Tags: ' + tags + '</p>' +
+      '<p><div id="singlefavorite"><i class="fa fa-heart"></i> ' + '<span>' + favorite +
+      '<p><div id="singlejournal">' + journal + '</p>' +
+    '</span></div></p>'
 
     $('#like').data('id', id);
     $('.oneBody').empty();
@@ -151,6 +151,7 @@ $(document).ready(function () {
     $('.view-btn').off().on('click', function (e) {
       e.preventDefault();
       $('.error').empty();
+      $('#favorite-form-message').text('');
 
       var id = $(this).data("id");
       console.log(id);
@@ -175,6 +176,7 @@ $(document).ready(function () {
   var favoritePost = function () {
     $('#like').off().on('click', function (e) {
       e.preventDefault();
+      $('#favorite-form-message').text('');
 
       var id = $(this).data("id");
 
@@ -187,19 +189,23 @@ $(document).ready(function () {
           $('#singlefavorite span').text(response.favorite);
 
           $('div.entries[data-id="' + response._id +'"]').find('#favorite span').empty().text(response.favorite);
+
+          $('#favorite-form-message').text('Liked!');
+
         },
         error: function (response, status) {
           console.log("can't add favorite! ", response);
+          $('#favorite-form-message').text("Looks like you've already liked this post!");
         }
       });
 
-    })
+    });
   };
 
   var topuserlist = function (username, favorite) {
     var list =
     '<div class="users col-md-12">' +
-      '<div class="topusername"><i class="fa fa-heart"></i> ' + favorite + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + username + '</div>' +
+      '<div class="topusername"><i class="fa fa-heart"></i> ' + favorite + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="/profile/' + username + '">' + username + '</a></span></div>' +
     '</div>'
 
     $('.popularUser').append(list);

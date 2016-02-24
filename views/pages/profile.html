@@ -47,6 +47,7 @@
         <p class="body"></p>
       </div>
       <div class="modal-footer">
+        <div id="delete-form-message"></div>
         <div class="foot">
           <button type="button" class="btn btn-default editPost"><i class="fa fa-pencil-square-o"></i> Edit</button>
           <button type="button" class="btn btn-default deletePost"><i class="fa fa-trash-o"></i> Delete</button>
@@ -70,9 +71,9 @@
           <div id="createJournal-page">
 
             <form id="createJournal">
-              <p><input type="text" name="title" maxlength="40" size="62" placeholder="title"></p>
+              <p><input type="text" name="title" maxlength="35" size="62" placeholder="title"></p>
               <p><input type="text" name="tags" size="62" placeholder="tags (separate by comma)"></p>
-              <p><input type="text" name="journal" size="62" id="entryInput" placeholder="journal"></p>
+              <p><textarea id="entryInput" rows="20" cols="61" placeholder="Write your journal here..."></textarea></p>
               <p><input type="submit" name="create journal" class="btn btn-default"></p>
             </form>
 
@@ -96,13 +97,13 @@
           <div id="editJournal-page">
 
             <form id="editJournal">
-              <p>Title: <br><input type="text" id="edit-title" name="title" size="62" placeholder="title"></p>
+              <p>Title: <br><input type="text" id="edit-title" name="title" maxlength="35" size="62" placeholder="title"></p>
               <p>Tags: <br><input type="text" id="edit-tags" name="tags" size="62" placeholder="tags (separate by comma)"></p>
-              <p>Journal: <br><input type="text" id="edit-journal" name="journal" size="62" id="entryInput" placeholder="journal"></p>
+              <p>Journal: <br><textarea id="edit-journal" rows="20" cols="61" placeholder="Write your journal here..."></textarea></p>
               <p><input type="submit" name="edit journal" class="btn btn-default"></p>
             </form>
 
-            <div id="create-form-message"></div>
+            <div id="edit-form-message"></div>
           </div>
         </div>
       </div>
